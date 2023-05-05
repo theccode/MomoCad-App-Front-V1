@@ -1,0 +1,30 @@
+import React, { Component } from "react";
+import { NavigationBar } from "../NavigationBar";
+import { Link } from "react-router-dom";
+import { runFireworks } from "../../utils/utils";
+import Footer from "../Footer";
+
+export class Thanks extends Component{
+    componentDidMount(){
+        runFireworks();
+        this.props.clearCart();
+    }
+    render(){
+        return <>
+            <div className="text-white">
+            <div className="">
+                    <NavigationBar { ...this.props } />
+                </div>
+                <div className="m-2 text-center">
+                    <h1 className="text-7xl mb-2 text-green-600">Congratulations!</h1>
+                    <p>Thanks for placing your order.</p>
+                    <p className="mb-2">We wish you the best!</p>
+                    <Link to="/momocad" className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-green-700 rounded-lg focus:ring-4 focus:ring-green-200 dark:focus:ring-green-900 hover:bg-green-800 mt-2">
+                        Return to Store
+                    </Link>
+                </div>
+            </div>
+            <Footer />
+        </>
+    }
+}
