@@ -55,6 +55,7 @@ export class MomoAuthService {
         }
         return authMethod;
     }
+
     logout() {
         sessionStorage.removeItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
         sessionStorage.removeItem(USER_AUTH_METHOD);
@@ -69,7 +70,7 @@ export class MomoAuthService {
     }
 
     getLoggedInUserName(){
-        let user = sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME)
+        let user = sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
         if (user == null) return '';
         return user;
     }

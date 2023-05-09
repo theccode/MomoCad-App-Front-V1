@@ -79,7 +79,7 @@ export class Shop extends Component{
         const authService = new MomoAuthService();
         this.props.addToCart(...args);
         if (authService.isUserLoggedIn()){
-            if (authService.getAuthMethod == 'email'){
+            if (authService.getAuthMethod() === 'email'){
                 this.props.history.push("/momocad/shop/cart");
             } else {
                 this.props.history.push("/momocad/shop/momo-user-cart");
