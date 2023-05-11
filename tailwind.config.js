@@ -2,12 +2,13 @@
 module.exports = {
   content: [
     "./src/**/*.{html,js}",
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
     extend: {
       textColor: ['visited']
     },
   },
-  plugins: [],
+  plugins: [require('flowbite/plugin')],
 }
 

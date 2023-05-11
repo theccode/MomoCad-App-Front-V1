@@ -1,10 +1,14 @@
 import { DataTypes } from "./Types";
 
-const protocol = "http";
 // const hostname = "165.227.175.62";
-// const hostname = "www.mobilemoneycad.com";
-const hostname = "127.0.0.1";
-const port = 8080;
+/***************www.mobilemoneycad.com***************/
+const protocol = "https";
+const hostname = "www.mobilemoneycad.com";
+const port = 443;
+/* ***************LOCAL**************** */
+// const hostname = "127.0.0.1";
+// const protocol = "http";
+// const port = 8080;
 
 export const RestUrls = {
     [DataTypes.MESSAGES]: `${protocol}://${hostname}:${port}/api/shop/messages`,
@@ -14,6 +18,6 @@ export const RestUrls = {
     [DataTypes.USERS]:`${protocol}://${hostname}:${port}/api/shop/register`,
     [DataTypes.LOGIN]:`${protocol}://${hostname}:${port}/api/shop/auth`,
     [DataTypes.CHECKOUT]:`${protocol}://${hostname}:${port}/api/shop/hubtel/sms`
-}
+};
 
 export const authUrl = `${protocol}://${hostname}:${port}/api/shop/auth`;

@@ -9,6 +9,7 @@ import { CartDetails } from "./CartDetails";
 import { Checkout } from "./Checkout";
 import { Thanks } from "./Thanks";
 import { PhoneCartDetails } from "./phone/PhoneCartDetails";
+import { Profile } from "../user/Profile";
 
 
 const mapStateToProps = (dataStore) => ({
@@ -43,6 +44,7 @@ export const ShopConnector = connect(mapStateToProps, mapDispatchToProps)(class 
             <Route path="/momocad/shop/momo-user-cart" render={ (routeProps) => <PhoneCartDetails { ...this.props } { ...routeProps } />} />
             {/* <Route path='/momocad/checkout' render={ routeProps => <Checkout { ...this.props } { ...routeProps } /> } /> */}
             <Route path='/momocad/thanks' render={ routeProps => <Thanks { ...this.props } { ...routeProps } /> } />
+            <Route path='/momocad/shop/user-profile' render={(routeProps) => <Profile  { ...this.props } { ...routeProps } show='none' /> } />
             <Redirect to="/momocad/shop/messages" />
         </Switch>
     }

@@ -18,6 +18,8 @@
     "bootstrap": "^4.1.2",
     "canvas-confetti": "^1.6.0",
     "dayjs": "^1.11.7",
+    "flowbite": "^1.6.5",
+    "flowbite-react": "^0.4.4",
     "formik": "^2.2.9",
     "graphql": "^14.0.2",
     "moment": "^2.29.4",

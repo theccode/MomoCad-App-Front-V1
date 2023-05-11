@@ -23,9 +23,8 @@ export class CartDetails extends Component{
 
     render() {
         const authService = new MomoAuthService();
-        console.log(authService.getLoggedInUserName())
         return <>
-        <NavigationBar {...this.props} />
+        <NavigationBar {...this.props} display='none' />
             <div className="flex  justify-center items-center flex-col">
                 <div className="flex flex-col items-center justify-center  mb-4">
                     <p className="text-2xl text-gray-400 mt-4 dark:text-gray-500">Kindly review your order details</p>
@@ -34,7 +33,7 @@ export class CartDetails extends Component{
                         <span className="mt-2"><img src={visa} width="120" height="120" /></span>
                     </div>
                 </div>
-                <table className="border-separate shadow-xl rounded-t-lg text-left border-spacing-2 border border-gray-500 text-gray-500 dark:text-gray-400">
+                <table className="shadow-xl m-2 border  border-gray-500 text-gray-500 dark:text-gray-400">
                     <tbody>
                         <CartDetailsRows 
                         cart={ this.props.cart } 

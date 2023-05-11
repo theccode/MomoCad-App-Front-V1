@@ -244,7 +244,7 @@ export class Shop extends Component{
             >
                 <Alert message="Message Sent!" type="success" />
             </Modal>
-            <NavigationBar {...this.props} handleRegisterUserClickEvent={this.showRegisterMethodModal} handleSignIn={this.showSuccessModal} handleLoginModal={this.showLoginMethod}/>
+            <NavigationBar {...this.props} handleRegisterUserClickEvent={this.showRegisterMethodModal} handleSignIn={this.showSuccessModal} handleLoginModal={this.showLoginMethod} showHome="none"/>
             <Jumbotron />
             <div className=" p-2 justify-center">
                 <div>
