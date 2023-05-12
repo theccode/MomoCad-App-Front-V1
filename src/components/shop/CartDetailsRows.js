@@ -35,27 +35,27 @@ export class CartDetailsRows extends Component{
                                 <td colSpan={1} className="px-3 py-2 mr-4">Sender's Email: </td>
                                 <td colSpan={3} className="px-3 py-2"><input type="text" id="sender-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full  p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. john@mobilemoneycad.com" value={this.getUserPhone(authService.getLoggedInUserName())} disabled/></td>
                             </tr>
-                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700"  style={{textAlign: "right !important"}}>
+                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2 ">Recieving Bank Account Number: </td>
                                 <td colSpan={3} className="px-3 py-2"><input type="text" id="receiving-bank-account" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. 14000083816388" value="" disabled/></td>
                             </tr>
-                            <tr className="border-b dark:bg-gray-800 dark:border-gray-700"  style={{textAlign: "right !important"}}>
+                            <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">Recieving Bank: </td>
                                 <td colSpan={3} className="px-3 py-2"><input type="text" id="receiving-bank" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. Ecobank Ghana PLC" value="" disabled/></td>
                             </tr>
-                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700"  style={{textAlign: "right !important"}}>
+                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">VISA/MASTER Card: </td>
                                 <td colSpan={3} className="px-3 py-2"><input type="text" id="card-number" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. **** **** ***** *****" /></td>
                             </tr>
-                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700"  style={{textAlign: "right !important"}}>
+                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">Card Holder: </td>
                                 <td colSpan={3} className="px-3 py-2"><input type="text" id="card-holder-name" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. John Doe" /></td>
                             </tr>
-                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700"  style={{textAlign: "right !important"}}>
+                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">Expiry Date: </td>
                                 <td colSpan={3} className="px-3 py-2"><input type="text" id="card-expiry-date" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. 02/30" /></td>
                             </tr>
-                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700"  style={{textAlign: "right !important"}}>
+                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">CCV: </td>
                                 <td colSpan={3} className="px-3 py-2"><input type="text" id="card-ccv" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. 821"  /></td>
                             </tr>
@@ -80,19 +80,19 @@ export class CartDetailsRows extends Component{
                             </tr>
                             <tr>
                                 <td colSpan={4} className="px-1 py-1">
-                                    <p className="text-justify text-right text-white w-full">By buying this momoCAD, recipient is credited with an amount of <span style={{color: `${item.message.category.colour}`, fontWeight: 'bold'}}>${item.message.category.amount - item.message.category.charge}</span> into their  bank account.</p>
+                                    <p className="text-justify text-white p-2">By buying this momoCAD, recipient is credited with an amount of <span style={{color: `${item.message.category.colour}`, fontWeight: 'bold'}}>${item.message.category.amount - item.message.category.charge}</span> into their  bank account.</p>
                                 </td>
                             </tr>
-                            <tr className="bg-white border-b  dark:bg-gray-800 dark:border-gray-700" colSpan={2}>
-                            <td colSpan={4} className="px-3 py-2 text-center ">
-                                <button type="button" className="focus:outline-none text-white focus:bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={ () => this.props.removeFromCart(item.message) }>
-                                    Remove
-                                </button>
-                            </td>
+                            <tr className="bg-white border-b  dark:bg-gray-800 dark:border-gray-700">
+                                <td colSpan={4} className="px-3 py-2 text-center">
+                                    <button type="button" className="focus:outline-none text-white focus:bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={ () => this.props.removeFromCart(item.message) }>
+                                        Remove
+                                    </button>
+                                </td>
                             </tr>
-                            <tr className="text-right  dark:border-gray-700" colSpan={2}>
+                            <tr className="text-right  dark:border-gray-700">
                                 <td colSpan={4} className="px-3 py-2">
-                                <hr className="my-6  sm:mx-auto dark:border-gray-700 lg:my-8 text-center" />
+                                <hr className="my-6 border-gray-200 border-dashed sm:mx-auto dark:border-gray-700 lg:my-8 text-center" />
                                 </td>
                             </tr>
                             

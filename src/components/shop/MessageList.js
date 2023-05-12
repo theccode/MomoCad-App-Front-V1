@@ -15,9 +15,9 @@ export class MessageList extends Component{
                             <span className="text-xl italic font-semibold tracking-tight text-gray-900 dark:text-white">{ message.momocadId  }</span>
                             <span className="text-xl italic ml-4 font-bold text-gray-900 dark:text-white" style={{color: `${message.category.colour}`}}>{message.category.amount}</span>
                         </a>
-                        <div className="flex items-center justify-between">
-                            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{ message.body  }</h5>
-                            <a href="#" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" style={{float: "right", backgroundColor: `${ message.category.colour }`}} onClick={ () => authService.isUserLoggedIn() ? this.props.addToCart(message): this.props.handleLoginModal()}>Send</a>
+                        <div className="flex items-center flex-col lg:flex-row md:flex-row justify-between">
+                            <h5 className="text-xl text-justify font-semibold tracking-tight text-gray-900 dark:text-white" style={{ fontFamily: '"Catamaran", sans-serif'}}>{ message.body  }</h5>
+                            <a href="#" className="text-white m-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" style={{float: "right", backgroundColor: `${ message.category.colour }`}} onClick={ () => authService.isUserLoggedIn() ? this.props.addToCart(message): this.props.handleLoginModal()}>Send</a>
                         </div>
                     </div>
                 </div>

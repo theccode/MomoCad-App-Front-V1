@@ -11,11 +11,15 @@ export class RestDataSource {
         const authService = new MomoAuthService();
         const phoneNumber = authService.getLoggedInUserName().split(',')[1];
         const receipientNumber = authService.getRecipientNumber();
+        console.log(data)
+        console.log(data.message.category.name + ': ' + data.message.body + '.' +'\n' +'.............................\n' + 'MOMOCAD ID: ' + data.message.momocadId + ' is worth GHC ' + (Number(data.message.category.amount) - Number(data.message.category.charge)) + '\nFROM: ' + phoneNumber+'. Visit https://www.mobilemoneycad.com to celebrate your loved ones.');
+        const formattedMessage = data.message.category.name + ': ' + data.message.body + '.' +' ............................. ' + ' MOMOCAD ID: ' + data.message.momocadId + ' is worth GHC ' + (Number(data.message.category.amount) - Number(data.message.category.charge)) + ' FROM: ' + phoneNumber+'. Visit https://www.mobilemoneycad.com to celebrate your loved ones.';
         const payload = {
             from: 'MOMOCAD',
             to: receipientNumber,
-            body: data.message.body// + '\n. ___ **FROM: ' + phoneNumber
+            body: formattedMessage
         }
+        // return;
         const res = this.SendRequest('post', RestUrls[dataType], payload);
         authService.clearReciepientNumber();
         return res;

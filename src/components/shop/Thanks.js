@@ -11,12 +11,11 @@ export class Thanks extends Component{
     }
     render(){
         return <>
-            <div className="text-white">
-            <div className="">
-                    <NavigationBar { ...this.props } />
-                </div>
+            <NavigationBar { ...this.props } display='none'/>
+            <div className="flex flex-col justify-center items-center text-white">
+
                 <div className="m-2 text-center">
-                    <h1 className="text-7xl mb-2 text-green-600">Congratulations!</h1>
+                    <h1 className="text-5xl mb-2 text-green-600">Congratulations!</h1>
                     <p>Thanks for placing your order.</p>
                     <p className="mb-2">We wish you the best!</p>
                     <Link to="/momocad" className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-green-700 rounded-lg focus:ring-4 focus:ring-green-200 dark:focus:ring-green-900 hover:bg-green-800 mt-2">

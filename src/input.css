@@ -14,9 +14,10 @@ ant-carousel .slick-slide {
   .ant-carousel .slick-slide h3 {
     color: #fff;
   }
+  
 
-  body {
-    font-family: "Raleway", Sans-Serif;
+  body, html {
+    font-family: 'Catamaran', sans-serif;
     font-weight: 400;
     margin: 0; 
     padding: 0;
