@@ -73,9 +73,9 @@ export class NavigationBar extends Component{
                         </ul>
                       </div>
                   </div>
+            <NavigationBanner {...this.props}  display={ this.props.display }/>
               </nav>
 
-            <NavigationBanner {...this.props}  display={ this.props.display }/>
             </>
 
         )

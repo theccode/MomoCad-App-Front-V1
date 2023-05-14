@@ -20,6 +20,15 @@ export class LoginWithPhone extends Component{
         const momoAuthService = new MomoAuthService();
         momoAuthService.executeBasicAuthenticationService(null, values.phoneNumber, values.password).then((res) => {
             Array.of(res.data).map(user => {
+                const user_credentials = {
+                    customerName: user.firstName + ' ' + user.lastName,
+                    customerMsisdn: user.phoneNumber,
+                    customerEmail: user.username || null
+                }
+                console.log(user_credentials)
+                momoAuthService.setUserDetails(
+                    user_credentials
+                )
                 momoAuthService.registerSuccessfulLogin(user.phoneNumber, user.phoneNumber)
             })
             this.props.history.push('/momocad/shop/messages')

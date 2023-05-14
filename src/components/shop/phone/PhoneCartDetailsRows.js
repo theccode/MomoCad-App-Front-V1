@@ -25,8 +25,7 @@ export class PhoneCartDetailsRows extends Component{
        authService.setRecipientNumber(receipientNumber);
     }
     handleKeyPress = (e) => {
-
-        if (this.state.messageText.length >= this.state.characterLimit){
+        if (this.state.messageText.length > this.state.characterLimit){
             e.preventDefault();
             e.stopPropagation();
         }
@@ -54,8 +53,11 @@ export class PhoneCartDetailsRows extends Component{
                                 <td colSpan={3} className="px-3 py-2">
                                 <span style={{ color: 'red'}}>{ this.props.errors['receiver'] }</span>
                                 <input ref='receiver' type="text" id="receiver-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0240183836" onChange={(e) => {
-                                    this.handleUserInput(e.target.value, authService) 
-                                    this.props.handleChange('receiver', e)
+                                    this.handleUserInput(e.target.value, authService); 
+                                    this.props.handleChange('receiver', e);
+                                    this.props.receiver(e.target.value);
+                                    this.props.receivingAmount(item.message.category.amount);
+                                    this.props.sendingAmount((Number(item.message.category.amount) - Number(item.message.category.charge)))
                                     }} required/>
                                 </td>
                             </tr>
@@ -63,7 +65,8 @@ export class PhoneCartDetailsRows extends Component{
                                 <td colSpan={1} className="px-3 py-2">Network: </td>
                                 <td colSpan={3} className="px-3 py-2">
                                 <span style={{ color: 'red'}}>{ this.props.errors['networks'] }</span>
-                                <select ref='networks' onChange={this.props.handleChange.bind(this, 'networks')} id="networks" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <select ref='networks' onChange={
+                                    this.props.handleChange.bind(this, 'networks')} id="networks" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option selected disabled>Select A Network</option>
                                     <option value="mtn-gh">MTN Ghana</option>
                                     <option value="vodafone-gh">Vodafone Ghana</option>
@@ -108,7 +111,10 @@ export class PhoneCartDetailsRows extends Component{
                                 <td colSpan={1} className="px-3 py-2">Confirm Receiver's ID: </td>
                                 <td colSpan={3} className="px-3 py-2">
                                     <span style={{ color: 'red'}}>{ this.props.errors['confirm'] }</span>
-                                    <input ref='confirm'  onChange={e =>  this.props.handleChange('confirm', e)} type="text" id="confirm-receiver-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0240183836" required/>
+                                    <input ref='confirm'  onChange={e =>  {
+                                        this.props.handleChange('confirm', e);
+                                        this.props.confirm(e.target.value);
+                                    }} type="text" id="confirm-receiver-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0240183836" required/>
                                 </td>
                             </tr>
                             <tr className="border-b  dark:border-gray-700">

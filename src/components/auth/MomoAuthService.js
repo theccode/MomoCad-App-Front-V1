@@ -4,6 +4,8 @@ import { authUrl } from "../data/Urls";
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
 export const USER_AUTH_METHOD = 'authMethod';
 export const RECIPIENT_NUMBER = 'recipientNumber';
+export const USERDETAILS = 'userDetails';
+export const TRANSACTION_DETAILS = 'transactionDetails';
 
 export class MomoAuthService {
     executeBasicAuthenticationService(email = null, phoneNumber=null, password){
@@ -48,6 +50,45 @@ export class MomoAuthService {
     clearReciepientNumber(){
         sessionStorage.removeItem(RECIPIENT_NUMBER);
     }
+    setUserDetails(userDetails){
+        const user_details = {
+            customerName: userDetails.customerName,
+            customerMsisdn: userDetails.customerMsisdn,
+            customerEmail: userDetails.customerEmail
+        }
+        sessionStorage.setItem(USERDETAILS, JSON.stringify(user_details))
+    }
+    getUserDetails(){
+        let userDetails = JSON.parse(sessionStorage.getItem(USERDETAILS));
+        if (userDetails == null){
+            return '';
+        }
+        return userDetails;
+    }
+
+    removeUserDetails(){
+        sessionStorage.removeItem(USERDETAILS);
+    }
+    setTransactionDetails (transactionDetails) {
+        const transDetails = {
+            channel: transactionDetails.channel,
+            sendingAmount: transactionDetails.sendingAmount,
+            receivingAmount: transactionDetails.receivingAmount,
+            description: transactionDetails.description,
+        }
+        sessionStorage.setItem(TRANSACTION_DETAILS, JSON.stringify(transDetails))
+    }
+    getTransactionDetails(){
+        let transactionDetails = JSON.parse(sessionStorage.getItem(TRANSACTION_DETAILS));
+        if (transactionDetails == null){
+            return '';
+        }
+        return transactionDetails;
+    }
+    removeTransaction(){
+        sessionStorage.removeItem(TRANSACTION_DETAILS);
+    }
+
     getAuthMethod(){
         let authMethod = sessionStorage.getItem(USER_AUTH_METHOD);
         if (authMethod == null){

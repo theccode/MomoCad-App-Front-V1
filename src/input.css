@@ -1,4 +1,4 @@
-@tailwind base;
+
 ant-carousel .slick-slide {
     text-align: center;
     height: 160px;
@@ -14,10 +14,13 @@ ant-carousel .slick-slide {
   .ant-carousel .slick-slide h3 {
     color: #fff;
   }
+  :root{
+    font-family: 'Raleway', sans-serif;
+  }
   
 
   body, html {
-    font-family: 'Catamaran', sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-weight: 400;
     margin: 0; 
     padding: 0;
@@ -52,6 +55,11 @@ ant-carousel .slick-slide {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
-  
+
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.modalStyle {
+  background-color: 'red'
+}

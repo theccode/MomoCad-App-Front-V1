@@ -2,13 +2,14 @@ import { DataTypes } from "./Types";
 
 // const hostname = "165.227.175.62";
 /***************www.mobilemoneycad.com***************/
-// const protocol = "https";
-// const hostname = "www.mobilemoneycad.com";
-// const port = 443;
+const protocol = "https";
+const hostname = "www.mobilemoneycad.com";
+const port = 443;
+const CALLBACKURL = 'CALLBACKURL';
 /* ***************LOCAL**************** */
-const hostname = "127.0.0.1";
-const protocol = "http";
-const port = 8080;
+// const hostname = "127.0.0.1";
+// const protocol = "http";
+// const port = 8080;
 
 export const RestUrls = {
     [DataTypes.MESSAGES]: `${protocol}://${hostname}:${port}/api/shop/messages`,
@@ -18,8 +19,9 @@ export const RestUrls = {
     [DataTypes.USERS]:`${protocol}://${hostname}:${port}/api/shop/register`,
     [DataTypes.LOGIN]:`${protocol}://${hostname}:${port}/api/shop/auth`,
     [DataTypes.CHECKOUT]:`${protocol}://${hostname}:${port}/api/shop/hubtel/sms`,
-    [DataTypes.RECEIVEMONEY]:`${protocol}://${hostname}:${port}/api/shop/hubtel/receivemoney`,
-    [DataTypes.SENDMONEY]:`${protocol}://${hostname}:${port}/api/shop/hubtel/sendmoney`
+    [DataTypes.RECEIVEMONEY]:`${protocol}://${hostname}:${port}/api/momocad/receivemoney`,
+    [DataTypes.SENDMONEY]:`${protocol}://${hostname}:${port}/api/momocad/sendmoney`,
+    [CALLBACKURL]:`${protocol}://${hostname}:${port}/api/momocad/money/res`,
 };
 
 export const authUrl = `${protocol}://${hostname}:${port}/api/shop/auth`;

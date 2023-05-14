@@ -3,7 +3,7 @@ import { MessageList } from "./MessageList";
 import { NavigationBar } from "../NavigationBar";
 import { Jumbotron } from "../Jumbotron";
 import Footer from "../Footer";
-import { Alert, Modal } from "antd";
+import { Alert, ConfigProvider, Modal } from "antd";
 import { SignupWithEmail } from "../auth/SignupWithEmail";
 import { LoginWithEmail } from "../auth/LoginWithEmail";
 import { MomoAuthService } from "../auth/MomoAuthService";
@@ -137,6 +137,7 @@ export class Shop extends Component{
                 onOk={ this.hideLoginMethod }
                 onCancel={ this.hideLoginMethod }
                 width={400}
+                className="modalStyle"
             >
                 <LoginMethod 
                 showLoginModal={this.showLoginModal} 
