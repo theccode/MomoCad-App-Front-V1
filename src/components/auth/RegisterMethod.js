@@ -52,14 +52,13 @@ export class RegisterMethod extends Component {
                             /* and other goodies */
                         }) => (
                             <form onSubmit={handleSubmit}>
-                                <div role="group" aria-labelledby="my-radio-group">
-                                    
+                                <div role="group" aria-labelledby="my-radio-group">                               
                                     <label>
-                                    <Field type="radio" name="method" value="Email" />
+                                    <Field type="radio" name="method" value="Email"  style={{ color: '#00b96b'}} />
                                         <nbsp /> Email  <nbsp /> 
                                     </label>
                                     <label>
-                                    <Field type="radio" name="method" value="Phone" />
+                                    <Field type="radio" name="method" value="Phone" style={{ color: '#00b96b'}} />
                                         <nbsp /> Phone <nbsp />
                                     </label>
                                 </div>

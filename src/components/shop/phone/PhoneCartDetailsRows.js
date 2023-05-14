@@ -45,14 +45,27 @@ export class PhoneCartDetailsRows extends Component{
                                 <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">Sender's ID: </td>
                                 <td colSpan={3} className="px-3 py-2">
-                                    <input  type="text" id="sender-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full  p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0202458167" value={this.getUserPhone(authService.getLoggedInUserName())} disabled/>
+                                    <input style={{ fontFamily: '"Roboto", sans-serif'}}  type="text" id="sender-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full  p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0202458167" value={this.getUserPhone(authService.getLoggedInUserName())} disabled/>
+                                </td>
+                            </tr>
+                            <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td colSpan={1} className="px-3 py-2">Your Network: </td>
+                                <td colSpan={3} className="px-3 py-2">
+                                <span style={{ color: 'red'}}>{ this.props.errors['networks'] }</span>
+                                <select ref='networks' onChange={
+                                    this.props.handleChange.bind(this, 'networks')} id="networks" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option selected disabled>Select Your Network</option>
+                                    <option value="mtn-gh">MTN Ghana</option>
+                                    <option value="vodafone-gh">Vodafone Ghana</option>
+                                    <option value="tigo-gh">Tigo Airtel</option>
+                                </select>
                                 </td>
                             </tr>
                             <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">Receiver's ID: </td>
                                 <td colSpan={3} className="px-3 py-2">
                                 <span style={{ color: 'red'}}>{ this.props.errors['receiver'] }</span>
-                                <input ref='receiver' type="text" id="receiver-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0240183836" onChange={(e) => {
+                                <input style={{ fontFamily: '"Roboto", sans-serif'}}  ref='receiver' type="text" id="receiver-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0240183836" onChange={(e) => {
                                     this.handleUserInput(e.target.value, authService); 
                                     this.props.handleChange('receiver', e);
                                     this.props.receiver(e.target.value);
@@ -62,22 +75,23 @@ export class PhoneCartDetailsRows extends Component{
                                 </td>
                             </tr>
                             <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td colSpan={1} className="px-3 py-2">Network: </td>
+                                <td colSpan={1} className="px-3 py-2">Recipient's Network: </td>
                                 <td colSpan={3} className="px-3 py-2">
                                 <span style={{ color: 'red'}}>{ this.props.errors['networks'] }</span>
                                 <select ref='networks' onChange={
-                                    this.props.handleChange.bind(this, 'networks')} id="networks" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected disabled>Select A Network</option>
+                                    this.props.handleChange.bind(this, 'receiver-networks')} id="networks" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option selected disabled>Select Recipient's Network</option>
                                     <option value="mtn-gh">MTN Ghana</option>
                                     <option value="vodafone-gh">Vodafone Ghana</option>
                                     <option value="tigo-gh">Tigo Airtel</option>
                                 </select>
                                 </td>
                             </tr>
+                            
                             <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">MomoCad ID: </td>
                                 <td colSpan={3} className="px-3 py-2">
-                                    <input type="text" id="momocad-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" defaultValue={item.message.momocadId} placeholder="e.g 01FCDASKJ" disabled/>
+                                    <input style={{ fontFamily: '"Roboto", sans-serif'}}  type="text" id="momocad-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" defaultValue={item.message.momocadId} placeholder="e.g 01FCDASKJ" disabled/>
                                 </td>
                             </tr>
                             <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
@@ -96,7 +110,7 @@ export class PhoneCartDetailsRows extends Component{
                             </tr> */}
                             <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">CAD Amount: </td>
-                                <td colSpan={3} className="px-3 py-2"><input type="text" id="cad-amount" className="bg-gray-50  text-gray-900 text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" defaultValue={Number(item.message.category.amount).toFixed(2)} placeholder="Amount" required/></td>
+                                <td colSpan={3} className="px-3 py-2"><input type="text" id="cad-amount" className="bg-gray-50  text-gray-900 text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" defaultValue={Number(item.message.category.amount).toFixed(2)} placeholder="Amount" disabled required/></td>
                             </tr>
                             <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">Total Amount: </td>
@@ -114,15 +128,7 @@ export class PhoneCartDetailsRows extends Component{
                                     <input ref='confirm'  onChange={e =>  {
                                         this.props.handleChange('confirm', e);
                                         this.props.confirm(e.target.value);
-                                    }} type="text" id="confirm-receiver-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0240183836" required/>
-                                </td>
-                            </tr>
-                            <tr className="border-b  dark:border-gray-700">
-                                <td colSpan={4} className="px-3 py-2 text-center">
-                                <button type="button" className="text-white bg-gradient-to-r mt-2 from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" onClick={ () => this.props.removeFromCart(item.message) }>Cancel</button>
-                                    {/* <button type="button" className="focus:outline-none text-white focus:bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={ () => this.props.removeFromCart(item.message) }>
-                                        Cancel
-                                    </button> */}
+                                    }} type="text" id="confirm-receiver-id" style={{ fontFamily: '"Roboto", sans-serif'}} className="bg-gray-50  text-gray-900 text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0240183836" required/>
                                 </td>
                             </tr>
                             <tr className="w-full border-b dark:border-gray-700" >

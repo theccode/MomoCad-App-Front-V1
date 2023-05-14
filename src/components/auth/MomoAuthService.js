@@ -72,6 +72,7 @@ export class MomoAuthService {
     setTransactionDetails (transactionDetails) {
         const transDetails = {
             channel: transactionDetails.channel,
+            receiverNetwork: transactionDetails.receiverNetwork,
             sendingAmount: transactionDetails.sendingAmount,
             receivingAmount: transactionDetails.receivingAmount,
             description: transactionDetails.description,

@@ -8,6 +8,9 @@ export class RestDataSource {
           (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
         );
       }
+    getRandomArbitrary(min, max) {
+        return Math.random() * (max - min) + min;
+    }
     SendRequest =  (method, url, data) => Axios.request({ method, url, data });
     GetData = (dataType) => this.SendRequest('get', RestUrls[dataType]);
     RegisterUser =  (dataType, data) => this.SendRequest('post', RestUrls[dataType], data);
@@ -27,29 +30,30 @@ export class RestDataSource {
             description: transactionDetails.description,
             clientReference: `${this.uuidv4()}`.substring(0, 20)
         }
-        console.log(payload);
-        // return;
         this.SendRequest('post', RestUrls[dataType], payload)
     };
+
     PayRecipient = (dataType, data) => {
+        let i = 0;
         const authService = new MomoAuthService();
         const userDetails = authService.getUserDetails();
         const transactionDetails = authService.getTransactionDetails();
 
         const payload = {
-            recipientName: 'any',
+            recipientName: authService.getRecipientNumber(),
             recipientMsisdn: authService.getRecipientNumber(),
             customerEmail: userDetails.customerEmail,
-            channel: transactionDetails.channel,
-            amount: transactionDetails.sendingAmount,
+            channel: transactionDetails.receiverNetwork,
+            amount: String((Number(transactionDetails.sendingAmount)).toFixed(2)),
             primaryCallbackUrl: RestUrls['CALLBACKURL'],
-            description: transactionDetails.description,
-            clientReference: `${this.uuidv4()}`.substring(0, 20)
+            description: 'Withdrawal',
+            clientReference: `Pay10${Math.round(this.getRandomArbitrary(1, 1000000000))}`
         }
-        console.log(payload);
-        // return;
         this.SendRequest('post', RestUrls[dataType], payload)
+        authService.removeTransaction();
+        authService.removeUserDetails();
     };
+
     Checkout =  (dataType, data) => {
         const authService = new MomoAuthService();
         const phoneNumber = authService.getLoggedInUserName().split(',')[1];
@@ -60,7 +64,6 @@ export class RestDataSource {
             to: receipientNumber,
             body: formattedMessage
         }
-        // return;
         const res = this.SendRequest('post', RestUrls[dataType], payload);
         authService.clearReciepientNumber();
         return res;

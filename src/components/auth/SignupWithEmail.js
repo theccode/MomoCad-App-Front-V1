@@ -15,7 +15,7 @@ export class SignupWithEmail extends Component{
     })
     
     render(){
-        const BottomMargin = { marginBottom: '0.7em' }
+        const BottomMargin = { marginBottom: '0.7em', backgroundColor: '#2d2c2c' }
         const data = {
             dateOfBirth: dayjs(new Date(2000, 9, 9))
         }
@@ -160,19 +160,18 @@ export class SignupWithEmail extends Component{
                             </Form.Item>
                             {errors.dateOfBirth && touched.dateOfBirth &&  <Tag style={ fieldStyle}>{ errors.dateOfBirth }</Tag>}
                             Gender:  
-                            <div role="group" aria-labelledby="my-radio-group">
-                                
+                            <div role="group" aria-labelledby="my-radio-group">                              
                                 <label>
-                                <Field type="radio" name="gender" value="Male" />
-                                    <nbsp /> Male  <nbsp /> 
+                                <Field type="radio" name="gender" value="Male" style={{ color: '#00b96b'}} />
+                                    <span> Male </span> 
                                 </label>
                                 <label>
-                                <Field type="radio" name="gender" value="Female" />
-                                    <nbsp /> Female <nbsp />
+                                <Field type="radio" name="gender" value="Female" style={{ color: '#00b96b'}} />
+                                     <span> Female </span> 
                                 </label>
                                 <label>
-                                    <Field type="radio" name="gender" value="Other" />
-                                    <nbsp /> Other
+                                    <Field type="radio" name="gender" value="Other" style={{ color: '#00b96b'}} />
+                                        <span> Other </span> 
                                 </label>
                             </div>
                             {errors.gender && touched.gender &&  <Tag style={fieldStyle}>{ errors.gender }</Tag>} <br/>

@@ -35,7 +35,7 @@ export class LoginWithEmail extends Component{
         });
     }
     render(){
-        const BottomMargin = { marginBottom: '0.7em' };
+        const BottomMargin = { marginBottom: '0.7em', backgroundColor: '#2d2c2c' };
         const fieldStyle = {backgroundColor: 'transparent', outline:'none', border: 'none', color:'#FF0000', ...BottomMargin};
         return <>
                 <Formik
@@ -72,7 +72,7 @@ export class LoginWithEmail extends Component{
                             isValid
                             /* and other goodies */
                         }) => (
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit} >
                             <Input
                                 style={ BottomMargin }
                                 type="email"
@@ -81,6 +81,7 @@ export class LoginWithEmail extends Component{
                                 onBlur={handleBlur}
                                 value={values.email}
                                 placeholder='Email e.g. john@example.com'
+                                className="bg-zinc-700"
                             />
                             {errors.email && touched.email &&  <Tag style={fieldStyle}>{errors.email}</Tag>}
                             <Input
@@ -91,6 +92,7 @@ export class LoginWithEmail extends Component{
                                 onBlur={handleBlur}
                                 value={values.password}
                                 placeholder='Password...'
+                                className="dark:bg-zinc-700"
                             />
                             {errors.password && touched.password &&  <Tag style={fieldStyle}>{errors.password}</Tag>}
                             <Button 

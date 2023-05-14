@@ -5,7 +5,7 @@ import { PhoneCartDetailsRows } from "./PhoneCartDetailsRows";
 import { NavigationBar } from "../../NavigationBar";
 import Footer from "../../Footer";
 import Momo from '../../../assets/momo.png';
-import { Alert, Modal } from "antd";
+import { Alert, ConfigProvider, Modal, theme } from "antd";
 import { RestDataSource } from "../../data/RestDataSource";
 import { MomoAuthService } from "../../auth/MomoAuthService";
 import { RestUrls } from "../../data/Urls";
@@ -22,6 +22,7 @@ export class PhoneCartDetails extends Component{
             receiverNumber:'',
             confirmNumber: '',
             isTransactionStatusModalShown: false,
+            confirmLoading: true,
             network: '',
             sendingAmount:'',
             receivingAmount:'', 
@@ -69,6 +70,10 @@ export class PhoneCartDetails extends Component{
             errors['networks'] = 'Please select a network.';
         }
 
+        if (!fields['receiver-networks']){
+            formIsValid = false;
+            errors['receiver-networks'] = 'Recipient\'s network cannot be empty.'
+        }
         if (!fields['confirm']){
             formIsValid = false;
             errors['confirm'] = 'Please confirm Receiver\'s contact.';
@@ -77,8 +82,7 @@ export class PhoneCartDetails extends Component{
             errors['confirm'] = 'Receiver contact mismatch.'
         }
 
-        if (this.state.messageLength > this.state.characterLimit){
-            
+        if (this.state.messageLength > this.state.characterLimit){  
             formIsValid = false;
             errors['message'] = 'Message cannot exceed 160 charaters.';
         }
@@ -98,32 +102,55 @@ export class PhoneCartDetails extends Component{
     })
     handleTransaction = () => {
         const restDataSource = new RestDataSource();
+        const payResult = this.props.send_money();
         this.props.checkout(this.handleCheckout(this.props.cart));
+    }
+
+    handleConfirmLoading = () => {
+        setTimeout(() =>{
+            this.setState({
+                confirmLoading: false
+            })
+        }, 5000)
     }
 
     getLinkClasses = ()=>`inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white ${this.props.cartItems === 0 ? 'disabled' : ''}
     `;
 
     render() {
-        const { isTransactionStatusModalShown, network, sendingAmount, receivingAmount } = this.state;
+        const { isTransactionStatusModalShown, network, sendingAmount, receivingAmount, confirmLoading } = this.state;
         const authService = new MomoAuthService();
         const transactionDetails = {
             channel: this.state.fields['networks'],
+            receiverNetwork: this.state.fields['receiver-networks'],
             sendingAmount: sendingAmount,
             receivingAmount: receivingAmount,
             description: 'MOMOCAD'
         }
         const restDataSource = new RestDataSource();
         return <>
-        <Modal
-            title="Transaction Status"
-            open={ isTransactionStatusModalShown }
-            onOk={ this.handleTransaction }
-            onCancel={ this.hideTransactionStatusModal}
-            width={400}
-            >
-                <Alert message="Transaction is successful, you'll receive a prompt to continue with this purchase, kindly approve it to complete the transaction." type="success" />
+        <ConfigProvider
+            theme={{
+                token: {
+                    colorPrimary: '#00b96b'
+                },
+                algorithm: theme.darkAlgorithm
+            }}
+        >
+            <Modal
+                title="Transaction Status"
+                open={ isTransactionStatusModalShown }
+                onOk={ this.handleTransaction }
+                onCancel={ this.hideTransactionStatusModal}
+                confirmLoading={ confirmLoading }
+                width={400}
+                closable={false}
+                maskClosable={false}
+                okText="Proceed"
+                >
+                    <Alert message="Congrats! Click on 'Proceed' to complete the transaction or 'Cancel' to cancel the transaction. You'll receive a prompt to continue with this purchase, kindly approve it to complete the transaction. If you miss the prompt, simply visit your wallet and choose 'My Approvals'. Thank you!" type="success" />
             </Modal>
+        </ConfigProvider>
         <NavigationBar {...this.props } display='none' />
             <div className="flex  justify-center items-center flex-col">
                 <div className="flex flex-col items-center justify-center  mb-4">
@@ -161,10 +188,8 @@ export class PhoneCartDetails extends Component{
                     <button type="button" class="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 mr-2 mb-2" onClick={() => {
                          authService.setTransactionDetails(transactionDetails);
                         if (this.handleValidation()){
-                            const receiveResult = restDataSource.PayUs(RestUrls.RECEIVEMONEY,{})
-                            const payResult = restDataSource.PayRecipient(RestUrls.SENDMONEY,{});
-                            console.log(receiveResult);
-                            console.log(payResult);
+                            const receiveResult = this.props.receive_money()
+                            this.handleConfirmLoading();
                             this.showTransactionStatusModal()
                         }
                     }}>

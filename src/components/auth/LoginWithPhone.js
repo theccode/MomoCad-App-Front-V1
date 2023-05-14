@@ -25,7 +25,6 @@ export class LoginWithPhone extends Component{
                     customerMsisdn: user.phoneNumber,
                     customerEmail: user.username || null
                 }
-                console.log(user_credentials)
                 momoAuthService.setUserDetails(
                     user_credentials
                 )
@@ -41,7 +40,7 @@ export class LoginWithPhone extends Component{
         });
     }
     render(){
-        const BottomMargin = { marginBottom: '0.7em' };
+        const BottomMargin = { marginBottom: '0.7em',  backgroundColor: '#2d2c2c' };
         const fieldStyle = {backgroundColor: 'transparent', outline:'none', border: 'none', color:'#FF0000', ...BottomMargin};
         return <>
                 <Formik
@@ -82,6 +81,7 @@ export class LoginWithPhone extends Component{
                                 onBlur={handleBlur}
                                 value={values.phoneNumber}
                                 placeholder='Phone Number e.g. 0248383831'
+                                className="dark:bg-gray-100"
                             />
                             {errors.phoneNumber && touched.phoneNumber &&  <Tag style={fieldStyle}>{errors.phoneNumber}</Tag>}
                             <Input

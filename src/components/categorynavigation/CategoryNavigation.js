@@ -17,7 +17,7 @@ export class CategoryNavigation extends Component {
                     key={category.categoryId} 
                     to={`${this.props.baseUrl}/${category.name.toLowerCase()}`}
                     >
-                        { category.name }
+                        { (category.name.trim()).charAt(0).toUpperCase() + (category.name.trim()).substring(1, category.name.length).toLowerCase() }
                        
                     </ToggleLink>
                 )

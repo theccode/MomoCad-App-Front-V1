@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Shop } from "./Shop";
-import { loadData, placeOrder, addUser, checkout, login } from "../data/ActionCreators";
+import { loadData, placeOrder, addUser, checkout, login, receive_money, send_money} from "../data/ActionCreators";
 import { DataTypes } from "../data/Types";
 import { addToCart, updateCartQuantity, removeFromCart, clearCart } from '../data/CartActionCreators';
 import { CartDetails } from "./CartDetails";
@@ -17,7 +17,7 @@ const mapStateToProps = (dataStore) => ({
 })
 
 const mapDispatchToProps = {
-    loadData, addToCart, updateCartQuantity, removeFromCart, clearCart, placeOrder, addUser, checkout
+    loadData, addToCart, updateCartQuantity, removeFromCart, clearCart, placeOrder, addUser, checkout, login, receive_money, send_money
 }
 
 const filterMessages = (messages = [], category) => (

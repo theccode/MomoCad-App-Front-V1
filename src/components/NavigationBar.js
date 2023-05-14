@@ -10,7 +10,6 @@ export class NavigationBar extends Component{
     handleLogout = (authService) => {
         authService.logout();
         sessionStorage.clear();
-        console.log(authService.getLoggedInUserName())
         this.props.history.push('/momocad/shop/messages')
     }
 

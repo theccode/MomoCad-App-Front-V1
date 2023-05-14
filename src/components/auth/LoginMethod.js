@@ -55,16 +55,15 @@ export class LoginMethod extends Component {
                             isValid
                             /* and other goodies */
                         }) => (
-                            <form onSubmit={handleSubmit}>
-                                <div role="group" aria-labelledby="my-radio-group">
-                                    
+                            <form onSubmit={handleSubmit} >
+                                <div role="group" aria-labelledby="my-radio-group">   
                                     <label>
-                                    <Field type="radio" name="method" value="Email" />
-                                        <nbsp /> Email  <nbsp /> 
+                                    <Field type="radio" name="method" value="Email" style={{ color: '#00b96b'}} />
+                                        <span>  Email  </span>   
                                     </label>
                                     <label>
-                                    <Field type="radio" name="method" value="Phone" />
-                                        <nbsp /> Phone <nbsp />
+                                    <Field type="radio" name="method" value="Phone"  className="ml-4" style={{ color: '#00b96b'}}/>
+                                    <span>  Phone  </span>  
                                     </label>
                                 </div>
                                 {errors.method && touched.method &&  <Tag style={fieldStyle}>{ errors.method }</Tag>} <br/>

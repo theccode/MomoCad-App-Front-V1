@@ -3,7 +3,7 @@ import { MessageList } from "./MessageList";
 import { NavigationBar } from "../NavigationBar";
 import { Jumbotron } from "../Jumbotron";
 import Footer from "../Footer";
-import { Alert, ConfigProvider, Modal } from "antd";
+import { Alert, ConfigProvider, Modal, theme} from "antd";
 import { SignupWithEmail } from "../auth/SignupWithEmail";
 import { LoginWithEmail } from "../auth/LoginWithEmail";
 import { MomoAuthService } from "../auth/MomoAuthService";
@@ -13,7 +13,7 @@ import { SignupWithPhone } from "../auth/SignupWithPhone";
 import { LoginWithPhone } from "../auth/LoginWithPhone";
 import { RegisterMethod } from "../auth/RegisterMethod";
 import { Otp } from "../auth/otp/Otp";
-
+import '../../dist/output.css'
 export class Shop extends Component{
     state = {
         isRegisterUserModalVisible: false,
@@ -122,12 +122,22 @@ export class Shop extends Component{
     render(){
         const { isOTPModalShown,isRegisterMethodShown, registerWithPhoneShown, loginWithPhoneShown, isLoginMethodShown, isRegisterUserModalVisible, successModalShown, loginModalShown, isMessagingModalShown, loginFailureShown } = this.state;
         return <div className="mx-auto bg-slate-900 justify-center body text-slate-100">
+            <ConfigProvider
+            theme={{
+                token: {
+                    colorPrimary: '#00b96b'
+                },
+                algorithm: theme.darkAlgorithm,
+            }}
+        >
             <Modal
             title="Confirm OTP"
             open={ isOTPModalShown }
             onOk={ this.hideOtpModal }
             onCancel={ this.hideOtpModal }
             width={400}
+            footer={null}
+            maskClosable={false}
             >
                 <Otp />
             </Modal>
@@ -137,7 +147,8 @@ export class Shop extends Component{
                 onOk={ this.hideLoginMethod }
                 onCancel={ this.hideLoginMethod }
                 width={400}
-                className="modalStyle"
+                footer={null}
+                maskClosable={false}
             >
                 <LoginMethod 
                 showLoginModal={this.showLoginModal} 
@@ -151,6 +162,8 @@ export class Shop extends Component{
                 onOk={ this.hideRegisterMethodModal }
                 onCancel={ this.hideRegisterMethodModal }
                 width={400}
+                footer={null}
+                maskClosable={false}
             >
                 <RegisterMethod 
                 showRegisterModal={this.openRegisterUserModal} 
@@ -164,6 +177,8 @@ export class Shop extends Component{
             onOk={ this.closeRegisterUserModal }
             onCancel={ this.closeRegisterUserModal }
             width={400}
+            footer={null}
+            maskClosable={false}
             >
                 <SignupWithEmail { 
                     ...this.props } 
@@ -179,6 +194,8 @@ export class Shop extends Component{
             onOk={ this.hideRegisterWithPhoneModal }
             onCancel={ this.hideRegisterWithPhoneModal }
             width={400}
+            footer={null}
+            maskClosable={false}
             >
                 <SignupWithPhone { 
                     ...this.props } 
@@ -196,6 +213,8 @@ export class Shop extends Component{
                 open={ loginFailureShown }
                 onOk={ this.hideLoginFailureModal }
                 onCancel={ this.hideLoginFailureModal }
+                footer={null}
+                maskClosable={false}
             >
                 <Alert message="Invalid Credentials! Or Check your email for confirmation!" type="error" />
             </Modal>
@@ -204,6 +223,8 @@ export class Shop extends Component{
             open={ loginModalShown }
             onOk={ this.hideLoginModal }
             onCancel={ this.hideLoginModal }
+            footer={null}
+            maskClosable={false}
             >
                 <LoginWithEmail 
                 {...this.props}  
@@ -219,6 +240,8 @@ export class Shop extends Component{
             open={ loginWithPhoneShown }
             onOk={ this.hideLoginWithPhone }
             onCancel={ this.hideLoginWithPhone }
+            footer={null}
+            maskClosable={false}
             >
                 <LoginWithPhone 
                 {...this.props}  
@@ -229,22 +252,27 @@ export class Shop extends Component{
                 hideLoginMethod={ this.hideLoginMethod }
                 />
             </Modal>
-            <Modal
-                title="Success"
-                visible={successModalShown}
-                onOk={this.hideSuccessModal}
-                onCancel={this.hideSuccessModal}
-                            >
-                <Alert message="Thank you for registering! Check your email for confirmation." type="success" />
-            </Modal>
-            <Modal 
-            title='Message'
-            visible={isMessagingModalShown}
-            onOk={this.hideMessagingModal}
-            onCancel={this.hideLoginModal}
-            >
-                <Alert message="Message Sent!" type="success" />
-            </Modal>
+                <Modal
+                    title="Success"
+                    open={successModalShown}
+                    onOk={this.hideSuccessModal}
+                    onCancel={this.hideSuccessModal}
+                    footer={null}
+                    maskClosable={false}
+                                >
+                    <Alert message="Thank you for registering! Check your email for confirmation." type="success" />
+                </Modal>
+                <Modal 
+                title='Message'
+                open={isMessagingModalShown}
+                onOk={this.hideMessagingModal}
+                onCancel={this.hideLoginModal}
+                footer={null}
+                maskClosable={false}
+                >
+                    <Alert message="Message Sent!" type="success" />
+                </Modal>
+            </ConfigProvider>
             <NavigationBar {...this.props} handleRegisterUserClickEvent={this.showRegisterMethodModal} handleSignIn={this.showSuccessModal} handleLoginModal={this.showLoginMethod} showHome="none"/>
             <Jumbotron />
             <div className=" p-2 justify-center">

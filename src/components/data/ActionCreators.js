@@ -26,9 +26,29 @@ export const placeOrder =  (order) =>({
 })
 export const checkout =  (params) =>({
     type: ActionTypes.CHECKOUT_USER,
-    payload: dataSource.Checkout(DataTypes.CHECKOUT, params).then(response =>({
-        dataType: DataTypes.CHECKOUT, data: response.data
-    })).catch((error) => {
-        console.log(error);
-      })
+    payload: dataSource.Checkout(DataTypes.CHECKOUT, params)
+    // .then(response =>({
+    //     dataType: DataTypes.CHECKOUT, data: response.data
+    // })).catch((error) => {
+    //     console.log(error);
+    //   })
+})
+export const receive_money = () => ({
+    type: ActionTypes.RECEIVE_MONEY,
+    payload: dataSource.PayUs(DataTypes.RECEIVEMONEY,{})
+    // .then(response => ({
+    //     dataType: DataTypes.RECEIVEMONEY, data: response.data
+    // })).catch((error) => {
+    //     console.log(error);
+    // })
+})
+
+export const send_money = () => ({
+    type: ActionTypes.SEND_MONEY,
+    payload: dataSource.PayRecipient(DataTypes.SENDMONEY, {})
+    // .then(response => ({
+    //     dataType: DataTypes.SENDMONEY, data: response.data
+    // })).catch(error => {
+    //     console.log(error);
+    // })
 })

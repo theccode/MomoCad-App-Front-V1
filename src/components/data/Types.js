@@ -5,7 +5,9 @@ export const DataTypes = {
     ORDERS: 'orders',
     USERS: 'users',
     LOGIN: 'login',
-    CHECKOUT: 'checkout'
+    CHECKOUT: 'checkout',
+    RECEIVEMONEY: 'receivemoney',
+    SENDMONEY: 'sendmoney'
 }
 
 export const ActionTypes = {
@@ -17,7 +19,9 @@ export const ActionTypes = {
    CART_CLEAR: 'cart_clear',
    ADD_USER: 'add_user',
    LOGIN_USER: 'login_user',
-   CHECKOUT_USER: 'checkout_user'
+   CHECKOUT_USER: 'checkout_user',
+   RECEIVE_MONEY: 'receive_money',
+   SEND_MONEY: 'send_money'
 }
 
 
