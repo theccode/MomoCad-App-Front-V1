@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Shop } from "./Shop";
-import { loadData, placeOrder, addUser, checkout, login, receive_money, send_money} from "../data/ActionCreators";
+import { loadData, placeOrder, addUser, checkout, login, receive_money, send_money, fetch_rate} from "../data/ActionCreators";
 import { DataTypes } from "../data/Types";
 import { addToCart, updateCartQuantity, removeFromCart, clearCart } from '../data/CartActionCreators';
 import { CartDetails } from "./CartDetails";
-import { Checkout } from "./Checkout";
 import { Thanks } from "./Thanks";
 import { PhoneCartDetails } from "./phone/PhoneCartDetails";
 import { Profile } from "../user/Profile";
@@ -17,7 +16,18 @@ const mapStateToProps = (dataStore) => ({
 })
 
 const mapDispatchToProps = {
-    loadData, addToCart, updateCartQuantity, removeFromCart, clearCart, placeOrder, addUser, checkout, login, receive_money, send_money
+    loadData, 
+    addToCart, 
+    updateCartQuantity, 
+    removeFromCart, 
+    clearCart, 
+    placeOrder, 
+    addUser, 
+    checkout, 
+    login, 
+    receive_money, 
+    send_money,
+    fetch_rate
 }
 
 const filterMessages = (messages = [], category) => (
@@ -26,13 +36,13 @@ const filterMessages = (messages = [], category) => (
 
 export const ShopConnector = connect(mapStateToProps, mapDispatchToProps)(class extends Component{
   
-    render(){
+    render(){        
         return <Switch>
             <Route path="/momocad/shop/messages/:category?"
                 render={ (routeProps) => {
                     return (
-                <Shop  { 
-                    ...{ ...this.props.storeData, ...this.props}  } 
+                <Shop  
+                    {  ...this.props }  
                     { ...routeProps } 
                     messages={ filterMessages(this.props.messages, routeProps.match.params.category) } 
                 />
@@ -51,6 +61,7 @@ export const ShopConnector = connect(mapStateToProps, mapDispatchToProps)(class 
     
     componentDidMount(){
         this.props.loadData(DataTypes.CATEGORIES);
-        this.props.loadData(DataTypes.MESSAGES);
+        this.props.loadData(DataTypes.MESSAGES);    
+        this.props.loadData(DataTypes.FETCHRATE);
     }
 })

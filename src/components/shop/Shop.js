@@ -75,18 +75,25 @@ export class Shop extends Component{
     hideOtpModal = () => this.setState({
         isOTPModalShown: false
     })
-    handleAddToCart = (...args) => {
+    handleCheckout = ( paymentUrl ) => {
         const authService = new MomoAuthService();
-        this.props.addToCart(...args);
         if (authService.isUserLoggedIn()){
             if (authService.getAuthMethod() === 'email'){
-                this.props.history.push("/momocad/shop/cart");
+                window.location.href = paymentUrl;
             } else {
                 this.props.history.push("/momocad/shop/momo-user-cart");
             }
         } else {
             <Redirect to="/momocad/shop/messages" />
         }
+    }
+    
+    handleAddToCart = () => {
+        const authService = new MomoAuthService();
+        const message = authService.getMomocad();
+        this.props.addToCart(message);
+        // return;
+      
         // this.props.history.push("/momocad/shop/cart");
     }
 
@@ -284,6 +291,7 @@ export class Shop extends Component{
                     messages={ this.props.messages }
                     addToCart={ this.handleAddToCart }
                     handleLoginModal={ this.showLoginMethod }
+                    checkout={ this.handleCheckout }
                 />        
             </div> 
             <Footer /> 

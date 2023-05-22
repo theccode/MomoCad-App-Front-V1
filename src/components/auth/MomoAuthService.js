@@ -6,6 +6,8 @@ export const USER_AUTH_METHOD = 'authMethod';
 export const RECIPIENT_NUMBER = 'recipientNumber';
 export const USERDETAILS = 'userDetails';
 export const TRANSACTION_DETAILS = 'transactionDetails';
+export const CLIENT_REFERENCE = 'clientReference';
+export const MOMOCAD = 'momocad';
 
 export class MomoAuthService {
     executeBasicAuthenticationService(email = null, phoneNumber=null, password){
@@ -25,12 +27,28 @@ export class MomoAuthService {
         };
         return Axios.request(options);
     }
+
+
     createBasicAuthToken = (username, password) => {
         return 'Basic '  + window.btoa(username+ ':' + password)
     }
     registerSuccessfulLogin (username, phoneNumber){
         sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, [username, phoneNumber])
         this.setupAxiosInterceptors(this.createBasicAuthToken(username, phoneNumber));
+    }
+
+    setMomocad (momocad){
+        sessionStorage.setItem(MOMOCAD, JSON.stringify(momocad));
+    }
+    getMomocad(){
+        const momocad = JSON.parse(sessionStorage.getItem(MOMOCAD));
+        if (momocad == null){
+            return '';
+        }
+        return momocad;
+    }
+    removeMomocad(){
+        sessionStorage.removeItem(MOMOCAD);
     }
 
     setAuthMethod(authMethod){
@@ -90,6 +108,19 @@ export class MomoAuthService {
         sessionStorage.removeItem(TRANSACTION_DETAILS);
     }
 
+    setClientReference (clientReference){
+        sessionStorage.setItem(CLIENT_REFERENCE, JSON.stringify(clientReference));
+    }
+    getClientReference(){
+        let clientReference = JSON.parse(sessionStorage.getItem(CLIENT_REFERENCE));
+        if (clientReference == null){
+            return ''
+        }
+        return clientReference;
+    }
+    removeClientReference(){
+        sessionStorage.removeItem(CLIENT_REFERENCE);
+    }
     getAuthMethod(){
         let authMethod = sessionStorage.getItem(USER_AUTH_METHOD);
         if (authMethod == null){

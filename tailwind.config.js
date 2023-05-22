@@ -6,7 +6,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-      textColor: ['visited']
+      textColor: ['visited'],
+      backgroundColor: ['active']
     },
   },
   plugins: [require('flowbite/plugin')],

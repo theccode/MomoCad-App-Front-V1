@@ -51,6 +51,12 @@ ant-carousel .slick-slide {
   .track:hover {
     animation-play-state: paused;
   }
+  .modalStyle {
+    background-color: 'red'
+  }
+  #cat-nav {
+    color: yellow !important;
+  }
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
@@ -60,6 +66,4 @@ ant-carousel .slick-slide {
 @tailwind components;
 @tailwind utilities;
 
-.modalStyle {
-  background-color: 'red'
-}
+

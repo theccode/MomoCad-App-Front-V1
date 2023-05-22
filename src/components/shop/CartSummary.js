@@ -3,11 +3,14 @@ import { Link, Redirect } from "react-router-dom";
 import { MomoAuthService } from "../auth/MomoAuthService";
 
 export class CartSummary extends Component {
+    
     getSummary = () => {
-        if (this.props.cartItems > 0){
+        const authService = new MomoAuthService();
+        const message = authService.getMomocad();
+        if (Object.keys(message).length > 0){
             return <span>
-                { this.props.cartItems } item(s) <span> </span>
-                { Number(this.props.cartPrice).toFixed(2) }
+                { Object.keys(message).length } item(s) <span> </span>
+                { Number(message[Object.keys(message)[0]].category.amount).toFixed(2) }
             </span>
         } else {
             return <span>Your cart: (empty)</span>

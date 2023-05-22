@@ -1,6 +1,6 @@
 import { message } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, createRef } from "react";
 import { MomoAuthService } from "../../auth/MomoAuthService";
 
 export class PhoneCartDetailsRows extends Component{
@@ -11,12 +11,12 @@ export class PhoneCartDetailsRows extends Component{
     }
 
     handleChangeOnMsg = e =>{
-         this.setState({
-        messageText: e.target.value
-    })
-    this.props.setMessageLength(e.target.value.length);
-    this.props.setCharacterLimit(this.state.characterLimit);
-}
+            this.setState({
+            messageText: e.target.value
+        })
+        this.props.setMessageLength(e.target.value.length);
+        this.props.setCharacterLimit(this.state.characterLimit);
+    }
     getUserPhone = (userDetail) => {
         return userDetail.split(',')[0]
     }
@@ -33,7 +33,7 @@ export class PhoneCartDetailsRows extends Component{
     
     render(){
         const authService = new MomoAuthService;
-        const textAreaRef = React.createRef();
+        const textAreaRef = createRef();
         if(!this.props.cart || this.props.cart.length === 0){
             return <tr>
                 <td colSpan="2">Your cart is empty!</td>

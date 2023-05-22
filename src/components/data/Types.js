@@ -7,7 +7,8 @@ export const DataTypes = {
     LOGIN: 'login',
     CHECKOUT: 'checkout',
     RECEIVEMONEY: 'receivemoney',
-    SENDMONEY: 'sendmoney'
+    SENDMONEY: 'sendmoney',
+    FETCHRATE: 'rates'
 }
 
 export const ActionTypes = {
@@ -21,7 +22,8 @@ export const ActionTypes = {
    LOGIN_USER: 'login_user',
    CHECKOUT_USER: 'checkout_user',
    RECEIVE_MONEY: 'receive_money',
-   SEND_MONEY: 'send_money'
+   SEND_MONEY: 'send_money',
+   FETCH_RATE: 'rates'
 }
 
 

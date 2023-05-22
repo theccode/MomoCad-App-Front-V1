@@ -7,6 +7,9 @@ import { MomoCadDataStore } from './components/data/DataStore';
 
  class App extends Component {
   render(){
+    if (!navigator.onLine){
+      return <h3>Poor or No Internet Connectivity</h3>
+  } else {
     return <Provider store={ MomoCadDataStore }>
     <Router>
       <Switch>
@@ -15,6 +18,8 @@ import { MomoCadDataStore } from './components/data/DataStore';
       </Switch>
     </Router>
   </Provider>
+  }
+    
   }
 }
 

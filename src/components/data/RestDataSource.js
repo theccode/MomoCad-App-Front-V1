@@ -3,11 +3,7 @@ import { RestUrls } from "./Urls";
 import { MomoAuthService } from "../auth/MomoAuthService";
 
 export class RestDataSource {
-    uuidv4() {
-        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-          (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-        );
-      }
+    
     getRandomArbitrary(min, max) {
         return Math.random() * (max - min) + min;
     }
@@ -19,6 +15,7 @@ export class RestDataSource {
         const authService = new MomoAuthService();
         const userDetails = authService.getUserDetails();
         const transactionDetails = authService.getTransactionDetails();
+        
 
         const payload = {
             customerName: userDetails.customerName,
@@ -26,9 +23,9 @@ export class RestDataSource {
             customerEmail: userDetails.customerEmail,
             channel: transactionDetails.channel,
             amount: transactionDetails.receivingAmount,
-            primaryCallbackUrl: RestUrls['CALLBACKURL'],
+            primaryCallbackUrl: RestUrls.CALLBACK_URL,
             description: transactionDetails.description,
-            clientReference: `${this.uuidv4()}`.substring(0, 20)
+            clientReference: authService.getClientReference()
         }
         this.SendRequest('post', RestUrls[dataType], payload)
     };
@@ -38,6 +35,7 @@ export class RestDataSource {
         const authService = new MomoAuthService();
         const userDetails = authService.getUserDetails();
         const transactionDetails = authService.getTransactionDetails();
+        const clientReference = `Pay10${Math.round(this.getRandomArbitrary(1, 1000000000))}`;
 
         const payload = {
             recipientName: authService.getRecipientNumber(),
@@ -45,13 +43,13 @@ export class RestDataSource {
             customerEmail: userDetails.customerEmail,
             channel: transactionDetails.receiverNetwork,
             amount: String((Number(transactionDetails.sendingAmount)).toFixed(2)),
-            primaryCallbackUrl: RestUrls['CALLBACKURL'],
+            primaryCallbackUrl: RestUrls['PAY_CALLBACK_URL'],
             description: 'Withdrawal',
-            clientReference: `Pay10${Math.round(this.getRandomArbitrary(1, 1000000000))}`
+            clientReference: clientReference
         }
+        console.log(transactionDetails);
+        return;
         this.SendRequest('post', RestUrls[dataType], payload)
-        authService.removeTransaction();
-        authService.removeUserDetails();
     };
 
     Checkout =  (dataType, data) => {
@@ -68,4 +66,5 @@ export class RestDataSource {
         authService.clearReciepientNumber();
         return res;
     }
+    FetchRate = (dataType) => this.SendRequest('get', RestUrls[dataType]);
 }
