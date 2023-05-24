@@ -32,7 +32,7 @@ export class PhoneCartDetailsRows extends Component{
     }
     
     render(){
-        const authService = new MomoAuthService;
+        const authService = new MomoAuthService();
         const textAreaRef = createRef();
         if(!this.props.cart || this.props.cart.length === 0){
             return <tr>
@@ -99,6 +99,7 @@ export class PhoneCartDetailsRows extends Component{
                                     <textarea ref={ textAreaRef } id="message" rows="4" className="block p-2.5 w-full text-sm text-gray-900 text-justified bg-gray-50 rounded-lg w-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={item.message.body}  placeholder="Message..." onChange={ (e) => {
                                         this.handleChangeOnMsg(e);
                                         this.props.handleChange('message', e);
+                                        this.props.setMessage(e.target.value);
                                     } } isInvalid={(this.state.messageText.length > this.state.characterLimit)} onKeyPress={ this.handleKeyPress }></textarea>
                                     <button disabled type="button" class={this.state.messageText.length > this.state.characterLimit ? 'text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-4':' disabled text-amber bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-4'}>{this.state.messageText.length} / {this.state.characterLimit}</button>
                                     <span style={{ color: 'red', display: 'block'}}>{ this.props.errors['message'] }</span>

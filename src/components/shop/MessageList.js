@@ -50,7 +50,7 @@ export class MessageList extends Component{
             message: this.state.message
         }
         authService.setMomocad(message);
-         this.props.addToCart()
+        //  this.props.addToCart()
          this.props.checkout(this.state.paymentUrl)
     }
     handleCallBack(result){
@@ -72,7 +72,7 @@ export class MessageList extends Component{
         "totalAmount": amount,
         "description": "Pay for your momocad.",
         "callbackUrl": "https://www.mobilemoneycad.com/api/shop/visa/pay/res",
-        "returnUrl": "http://localhost:3000/momocad/shop/cart",
+        "returnUrl": "https://www.mobilemoneycad.com/momocad/shop/cart",
         "merchantAccountNumber": "2017419",
         "cancellationUrl": "https://www.mobilemoneycad.com",
         "clientReference": authService.getClientReference()
@@ -91,10 +91,16 @@ export class MessageList extends Component{
         .then(response => response.text())
         .then(result => {
             self.handleCallBack(JSON.parse(result))
-            console.log(result.responseCode)
-            console.log(result)
         })
         .catch(error => console.log('error', error));
+    }
+
+    handleUserType = (authService, {...args}) => {
+        if (authService.getAuthMethod() === 'email'){
+            this.openUserTermsModal()
+        } 
+
+        this.props.addToCart({...args});
     }
     render(){
         const authService = new MomoAuthService();
@@ -144,11 +150,11 @@ export class MessageList extends Component{
                                 <button type="button"  className="text-white m-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" style={{float: "right", backgroundColor: `${ message.category.colour }`}} onClick={ () =>{ 
                                     const clientReference = `${this.uuidv4()}`.substring(0, 20);
                                     authService.setClientReference(clientReference);
-                                    this.setAmount(message.category.amount, message.category.charge, this.props.rates[0].rate)
+                                    this.setAmount(message.category.amount, message.category.charge, 1/*this.props.rates[0].rate*/)
                                     this.setMessage(message);
-                                    console.log((amount - (amount * 0.1)) * rate);
                                     this.makePaymentCall(message.category.amount  /*</div>* this.props.rates[0].rate*/);
-                                    authService.isUserLoggedIn() ? this.openUserTermsModal() : this.props.handleLoginModal()
+                                    authService.setMomocad({message});
+                                    authService.isUserLoggedIn() ?  this.handleUserType(authService, message) : this.props.handleLoginModal()
                                     }}>Send</button>
                             </div>
                         </div>

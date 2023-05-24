@@ -2,16 +2,17 @@ import { DataTypes } from "./Types";
 
 // const hostname = "165.227.175.62";
 /***************www.mobilemoneycad.com***************/
-// const protocol = "https";
-// const hostname = "www.mobilemoneycad.com";
-// const port = 443;
+const protocol = "https";
+const hostname = "www.mobilemoneycad.com";
+const port = 443;
+/* *************** SECURED URL SETTINGS ******** */
 const CALLBACK_URL = 'CALLBACK_URL';
 const PAY_CALLBACK_URL = 'PAY_CALLBACK_URL';
 const SOCKET_URL = 'SOCKET_URL';
 /* ***************LOCAL**************** */
-const hostname = "127.0.0.1";
-const protocol = "http";
-const port = 8080;
+// const hostname = "127.0.0.1";
+// const protocol = "http";
+// const port = 8080;
 
 export const RestUrls = {
     [DataTypes.MESSAGES]: `${protocol}://${hostname}:${port}/api/shop/messages`,
@@ -27,7 +28,7 @@ export const RestUrls = {
     [CALLBACK_URL]:`${protocol}://${hostname}:${port}/api/shop/receive-momo/res`,
     [SOCKET_URL]:`${protocol}://${hostname}:${port}/ws`,
     [PAY_CALLBACK_URL]:`${protocol}://${hostname}:${port}/ws`,
-    [SOCKET_URL]:`${protocol}://${hostname}:${port}/ws`,
+    // [SOCKET_URL]:`${protocol}://${hostname}:${port}/ws`,
     // [DataTypes.SENDMONEY]:`${protocol}://${hostname}:${port}/api/momocad/send-momo/res`,
 };
 

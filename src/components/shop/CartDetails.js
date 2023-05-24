@@ -1,8 +1,5 @@
 import React, { Component, createRef } from "react";
-import { Link } from "react-router-dom";
 import { CartDetailsRows } from "./CartDetailsRows";
-import { MessageList } from "./MessageList";
-import Marquee from "react-fast-marquee";
 import Footer from "../Footer";
 import { NavigationBar } from "../NavigationBar";
 import { MomoAuthService } from "../auth/MomoAuthService";
@@ -37,16 +34,17 @@ export class CartDetails extends Component{
     }
     handleCheckout = (cart) =>{
         this.props.history.push(`/momocad/thanks`)
-        return cart[0];
+        return cart;
     }
     setMessageLength = (messageLength) => this.setState({messageLength: messageLength});
     setCharacterLimit = (characterLimit) => this.setState({ characterLimit: characterLimit});
-    setReceiverNumber = (receiver) => this.setState({ receiverNumber: receiver})
-    setConfirmNumber = (confirm) => this.setState({ confirmNumber: confirm})
+    setReceiverNumber = (receiver) => this.setState({ receiverNumber: receiver});
+    setConfirmNumber = (confirm) => this.setState({ confirmNumber: confirm});
     setNetwork = (network) => this.setState({network: network});
     setSendingAmount = (amount) => this.setState({sendingAmount: amount});
     setReceivingAmount = (amount) => this.setState({ receivingAmount: amount });
-    setSendersEmail = (sendersEmail) => this.setState({ sendersEmail: sendersEmail})
+    setSendersEmail = (sendersEmail) => this.setState({ sendersEmail: sendersEmail});
+    setMessage = (message) => this.setState({message: message});
     handleChange = (field, e) => {
         // this.props.updateQuantity(message, Number(event.target.value));
         let fields = this.state.fields;
@@ -93,16 +91,17 @@ export class CartDetails extends Component{
     `;
 
     render() {
-        const { isTransactionStatusModalShown, network, sendingAmount, receivingAmount, confirmLoading } = this.state;
+        const {sendersEmail, sendingAmount, receivingAmount, receiverNumber } = this.state;
         const authService = new MomoAuthService();
         const receiveAmt = (Number(receivingAmount) - Number(receivingAmount * 0.01));
         const transactionDetails = {
             channel: this.state.fields['networks'],
             receiverNetwork: this.state.fields['receiver-networks'],
-            customerEmail: this.state.sendersEmail,
             sendingAmount: sendingAmount,
             receivingAmount: receiveAmt,
-            description: 'MOMOCAD'
+            description: 'MOMOCAD',
+            customerEmail: sendersEmail,
+            receiversNumber: receiverNumber
         }
         return <>
         <NavigationBar {...this.props} display='none' />
@@ -117,7 +116,7 @@ export class CartDetails extends Component{
                 <table className="shadow-xl m-2 border  border-gray-500 text-gray-500 dark:text-gray-400">
                     <tbody>
                         <CartDetailsRows 
-                        cart={ authService.getMomocad()} 
+                        cart={ authService.getMomocad() || this.props.cart} 
                         cartPrice={ this.props.cartPrice }
                         updateQuantity={ this.props.updateCartQuantity }
                         removeFromCart={ this.props.removeFromCart }
@@ -132,6 +131,7 @@ export class CartDetails extends Component{
                         receivingAmount={ this.setReceivingAmount }
                         sendingAmount={ this.setSendingAmount }
                         setSendersEmail={ this.setSendersEmail }
+                        setMessage={ this.setMessage }
                         { ...this.props }
                         />
                     </tbody>
@@ -142,7 +142,10 @@ export class CartDetails extends Component{
                     <button type="button" class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2" onClick={() => {
                          authService.setTransactionDetails(transactionDetails);
                         if (this.handleValidation()){
-                            console.log('working');
+                            const message = authService.getMomocad();
+                            message.body = this.state.message;
+                            // if (message.bod)
+                            this.props.checkout(this.handleCheckout(message));
                             this.props.send_money();
                         }
                     }}>

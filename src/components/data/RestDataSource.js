@@ -38,30 +38,31 @@ export class RestDataSource {
         const clientReference = `Pay10${Math.round(this.getRandomArbitrary(1, 1000000000))}`;
 
         const payload = {
-            recipientName: authService.getRecipientNumber(),
-            recipientMsisdn: authService.getRecipientNumber(),
-            customerEmail: userDetails.customerEmail,
+            recipientName: (authService.getRecipientNumber() || transactionDetails.receiversNumber),
+            recipientMsisdn: (authService.getRecipientNumber() || transactionDetails.receiversNumber),
+            customerEmail: userDetails.customerEmail || transactionDetails.customerEmail,
             channel: transactionDetails.receiverNetwork,
             amount: String((Number(transactionDetails.sendingAmount)).toFixed(2)),
             primaryCallbackUrl: RestUrls['PAY_CALLBACK_URL'],
             description: 'Withdrawal',
             clientReference: clientReference
         }
-        console.log(transactionDetails);
-        return;
         this.SendRequest('post', RestUrls[dataType], payload)
     };
 
     Checkout =  (dataType, data) => {
         const authService = new MomoAuthService();
         const phoneNumber = authService.getLoggedInUserName().split(',')[1];
-        const receipientNumber = authService.getRecipientNumber();
-        const formattedMessage = data.message.category.name + ': ' + data.message.body + '.' + ' MOMOCAD ID: ' + data.message.momocadId + ' is worth GHC ' + (Number(data.message.category.amount) - Number(data.message.category.charge)) + ' FROM: ' + phoneNumber+'. Visit https://www.mobilemoneycad.com to celebrate your loved ones.';
+        const transactionDetails = authService.getTransactionDetails();
+        const receipientNumber = (authService.getRecipientNumber() || transactionDetails.receiversNumber);
+        // return;
+        const formattedMessage = data.message.category.name ||  data[Object.keys(data)].name+ ': ' + data.message.body  || data[Object.keys(data)].body + '.' + ' MOMOCAD ID: ' + data.message.momocadId || data[Object.keys(data)].momocadId+ ' is worth GHC ' + (Number(data.message.category.amount || data[Object.keys(data)].category.amount) - Number(data.message.category.charge || data[Object.keys(data)].category.charge)) + ' FROM: ' + phoneNumber || transactionDetails.customerEmail+'. Visit https://www.mobilemoneycad.com to celebrate your loved ones.';
         const payload = {
             from: 'MOMOCAD',
             to: receipientNumber,
             body: formattedMessage
         }
+
         const res = this.SendRequest('post', RestUrls[dataType], payload);
         authService.clearReciepientNumber();
         return res;

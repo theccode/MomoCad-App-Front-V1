@@ -94,6 +94,8 @@ export class MomoAuthService {
             sendingAmount: transactionDetails.sendingAmount,
             receivingAmount: transactionDetails.receivingAmount,
             description: transactionDetails.description,
+            customerEmail: transactionDetails.sendersEmail,
+            receiversNumber: transactionDetails.receiversNumber
         }
         sessionStorage.setItem(TRANSACTION_DETAILS, JSON.stringify(transDetails))
     }

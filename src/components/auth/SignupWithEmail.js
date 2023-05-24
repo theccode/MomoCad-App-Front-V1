@@ -1,19 +1,19 @@
 import { Component } from "react";
 import { Field, Formik } from "formik";
 import Input from "antd/es/input/Input";
-import { Button, DatePicker, Form, Tag } from "antd";
+import { Button, Checkbox, DatePicker, Form, Tag } from "antd";
 import moment from "moment";
 import dayjs from "dayjs";
 
 export class SignupWithEmail extends Component{
     state = {
         value: 1,
-        userExists: false
+        userExists: false,
+        showPassword: false
     }
-    onChange = e => this.setState({
-        value: e.target.value
-    })
+    onChange = e => this.setState({value: e.target.value})
     
+    handlePasswordField = (e) => this.setState({ showPassword: e.target.checked })
     render(){
         const BottomMargin = { marginBottom: '0.7em', backgroundColor: '#2d2c2c' }
         const data = {
@@ -111,7 +111,7 @@ export class SignupWithEmail extends Component{
                             
                             <Input
                                 style={ BottomMargin }
-                                type="password"
+                                type={this.state.showPassword ? "text" : "password"}
                                 name="password"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -122,7 +122,7 @@ export class SignupWithEmail extends Component{
                           
                             <Input
                                 style={ BottomMargin }
-                                type="password"
+                                type={this.state.showPassword ? "text" : "password"}
                                 name="confirmPassword"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -130,7 +130,8 @@ export class SignupWithEmail extends Component{
                                 placeholder='Confirm password...'
                             />
                             {errors.confirmPassword && touched.confirmPassword &&  <Tag style={fieldStyle}>{ errors.confirmPassword }</Tag>}
-
+                            <br/>
+                            <Checkbox style={ BottomMargin } onChange={ (e) => this.handlePasswordField(e)}>Show Password</Checkbox>
                             <Input
                                 style={ BottomMargin }
                                 type="email"

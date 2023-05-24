@@ -88,13 +88,13 @@ export class Shop extends Component{
         }
     }
     
-    handleAddToCart = () => {
+    handleAddToCart = (...args) => {
         const authService = new MomoAuthService();
         const message = authService.getMomocad();
-        this.props.addToCart(message);
-        // return;
-      
-        // this.props.history.push("/momocad/shop/cart");
+        this.props.addToCart(...args);
+        if (authService.getAuthMethod() !== 'email'){
+            this.props.history.push("/momocad/shop/momo-user-cart");
+        }
     }
 
     openRegisterUserModal = () => this.setState({

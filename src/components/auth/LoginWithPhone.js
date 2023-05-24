@@ -1,13 +1,13 @@
 import { Component } from "react";
-import {Formik } from "formik";
-import Input from "antd/es/input/Input";
-import { Button, Tag } from "antd";
+import {Field, Formik } from "formik";
+// import Input from "antd/es/input/Input";
+import { Button, Tag, Input, Checkbox } from "antd";
 import { MomoAuthService } from "./MomoAuthService";
-
 export class LoginWithPhone extends Component{
     state = {
         showSuccessMessage: false,
-        hasLogInFailed: false
+        hasLogInFailed: false,
+        showPassword: false
     }
     setMissMatchError (status){
         if (Number(status) === 409) {
@@ -39,8 +39,9 @@ export class LoginWithPhone extends Component{
             this.props.showError();
         });
     }
+    handlePasswordField = (e) => this.setState({ showPassword: e.target.checked})
     render(){
-        const BottomMargin = { marginBottom: '0.7em',  backgroundColor: '#2d2c2c' };
+        const BottomMargin = { marginBottom: '0.7em',  background: '#2d2c2c'};
         const fieldStyle = {backgroundColor: 'transparent', outline:'none', border: 'none', color:'#FF0000', ...BottomMargin};
         return <>
                 <Formik
@@ -86,7 +87,7 @@ export class LoginWithPhone extends Component{
                             {errors.phoneNumber && touched.phoneNumber &&  <Tag style={fieldStyle}>{errors.phoneNumber}</Tag>}
                             <Input
                                 style={ BottomMargin }
-                                type="password"
+                                type={ this.state.showPassword ? "text" : "password"}
                                 name="password"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -94,6 +95,10 @@ export class LoginWithPhone extends Component{
                                 placeholder='Password...'
                             />
                             {errors.password && touched.password &&  <Tag style={fieldStyle}>{errors.password}</Tag>}
+                            <div>
+                            <Checkbox onChange={ (e) => this.handlePasswordField(e)}>Show Password</Checkbox>
+                            </div>
+                            <br />
                             <Button 
                             disabled={isSubmitting || touched && !isValid} 
                             onClick={() => handleSubmit()}

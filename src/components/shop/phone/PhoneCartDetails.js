@@ -31,7 +31,8 @@ export class PhoneCartDetails extends Component{
             network: '',
             sendingAmount:'',
             receivingAmount:'', 
-            response: ''
+            response: '',
+            message: ''
         }; 
     }
     handleChange = (field, e) => {
@@ -60,6 +61,7 @@ export class PhoneCartDetails extends Component{
     setNetwork = (network) => this.setState({network: network});
     setSendingAmount = (amount) => this.setState({sendingAmount: amount});
     setReceivingAmount = (amount) => this.setState({ receivingAmount: amount });
+    setMessage = (message) => this.setState({message: message});
 
     handleValidation(){
         let fields = this.state.fields;
@@ -106,8 +108,12 @@ export class PhoneCartDetails extends Component{
         isTransactionStatusModalShown: false
     })
     handleTransaction = () => {
-        const restDataSource = new RestDataSource();
-        const payResult = this.props.send_money();
+        const message = this.props.cart[0].message.body;
+        const formattedMessage = this.state.message;
+        if (message.length < formattedMessage.length){
+            this.props.cart[0].message.body = formattedMessage;
+        }
+        this.props.send_money();
         this.props.checkout(this.handleCheckout(this.props.cart));
     }
 
@@ -205,6 +211,7 @@ export class PhoneCartDetails extends Component{
                         network={ this.setNetwork }
                         receivingAmount={ this.setReceivingAmount}
                         sendingAmount={ this.setSendingAmount }
+                        setMessage={ this.setMessage }
                         />}
                     </tbody>
                 </table>

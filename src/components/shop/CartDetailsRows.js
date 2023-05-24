@@ -19,9 +19,7 @@ export class CartDetailsRows extends Component{
     getUserPhone = (userDetail) => {
         return userDetail.split(',')[0]
     }
-    handleUserInput = (receipientNumber, authService) => {
-        authService.setRecipientNumber(receipientNumber);
-    }
+
     handleKeyPress = (e) => {
         if (this.state.messageText.length > this.state.characterLimit){
             e.preventDefault();
@@ -33,13 +31,10 @@ export class CartDetailsRows extends Component{
         this.props.updateQuantity(message, Number(event.target.value));
     }
 
-    getUserPhone = (userDetail) => {
-        return userDetail.split(',')[0]
-    }
-
-    handleUserInput = (receipientNumber, authService) => {
+    handleUserInput = (e, authService) => {
+        console.log(e.target.value)
         const userDetails = [authService.getLoggedInUserName()];
-        userDetails.push(receipientNumber);
+        userDetails.push(e.target.value);
         authService.registerSuccessfulLogin(userDetails)
     }
     render(){
@@ -67,7 +62,6 @@ export class CartDetailsRows extends Component{
                                 <td colSpan={3} className="px-3 py-2">
                                 <span style={{ color: 'red'}}>{ this.props.errors['receiver'] }</span>
                                     <input style={{ fontFamily: '"Roboto", sans-serif'}} type="text" id="receiving-bank-account" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. 0241112231"  onChange={(e) => {
-                                    this.handleUserInput(e.target.value, authService); 
                                     this.props.handleChange('receiver', e);
                                     this.props.receiver(e.target.value);
                                     this.props.receivingAmount(item.category.amount);
@@ -100,6 +94,7 @@ export class CartDetailsRows extends Component{
                                 onChange={ (e) => {
                                     this.handleChangeOnMsg(e);
                                     this.props.handleChange('message', e);
+                                    this.props.setMessage(e.target.value)
                                 } }
                                 ></textarea>
                                  <button disabled type="button" class={this.state.messageText.length > this.state.characterLimit ? 'text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-4':' disabled text-amber bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-4'}>{this.state.messageText.length} / {this.state.characterLimit}</button>

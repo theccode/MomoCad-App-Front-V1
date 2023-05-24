@@ -3,11 +3,16 @@ import { NavigationBar } from "../NavigationBar";
 import { Link } from "react-router-dom";
 import { runFireworks } from "../../utils/utils";
 import Footer from "../Footer";
+import { MomoAuthService } from "../auth/MomoAuthService";
 
 export class Thanks extends Component{
     componentDidMount(){
+        const authService = new MomoAuthService();
         runFireworks();
         this.props.clearCart();
+        authService.removeMomocad();
+        authService.removeTransaction();
+        authService.removeUserDetails();
     }
     render(){
         return <>
