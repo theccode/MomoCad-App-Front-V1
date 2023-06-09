@@ -19,6 +19,7 @@ export class Shop extends Component{
         isRegisterUserModalVisible: false,
         registerWithPhoneShown: false,
         successModalShown: false,
+        phoneSuccessModalShown: false,
         loginModalShown: false,
         loginWithPhoneShown: false,
         isMessagingModalShown: false,
@@ -126,8 +127,15 @@ export class Shop extends Component{
             isRegisterMethodShown: false
         })
     }
+
+    showPhoneSuccessModal = () => this.setState({
+        phoneSuccessModalShown: true
+    })
+    hidePhoneSuccessModal = () => this.setState({
+        phoneSuccessModalShown: false
+    })
     render(){
-        const { isOTPModalShown,isRegisterMethodShown, registerWithPhoneShown, loginWithPhoneShown, isLoginMethodShown, isRegisterUserModalVisible, successModalShown, loginModalShown, isMessagingModalShown, loginFailureShown } = this.state;
+        const { isOTPModalShown,isRegisterMethodShown, phoneSuccessModalShown, registerWithPhoneShown, loginWithPhoneShown, isLoginMethodShown, isRegisterUserModalVisible, successModalShown, loginModalShown, isMessagingModalShown, loginFailureShown } = this.state;
         return <div className="mx-auto bg-slate-900 justify-center body text-slate-100">
             <ConfigProvider
             theme={{
@@ -207,7 +215,7 @@ export class Shop extends Component{
                 <SignupWithPhone { 
                     ...this.props } 
                     onSuccess={() => this.hideRegisterWithPhoneModal()}
-                    showSuccess={() => this.showSuccessModal()}
+                    showSuccess={() => this.showPhoneSuccessModal()}
                     onLoginPressed={ this.showLoginWithPhone }
                     hideSignupWithPhoneModal={ this.hideRegisterWithPhoneModal }
                     hideLoginMethod={ this.hideLoginMethod }
@@ -259,16 +267,26 @@ export class Shop extends Component{
                 hideLoginMethod={ this.hideLoginMethod }
                 />
             </Modal>
-                <Modal
-                    title="Success"
-                    open={successModalShown}
-                    onOk={this.hideSuccessModal}
-                    onCancel={this.hideSuccessModal}
-                    footer={null}
-                    maskClosable={false}
-                                >
+            <Modal
+                title="Success"
+                open={successModalShown}
+                onOk={this.hideSuccessModal}
+                onCancel={this.hideSuccessModal}
+                footer={null}
+                maskClosable={false}
+                 >
                     <Alert message="Thank you for registering! Check your email for confirmation." type="success" />
-                </Modal>
+            </Modal>
+            <Modal
+                title="Success"
+                open={ phoneSuccessModalShown }
+                onOk={this.hideSuccessModal}
+                onCancel={this.hidePhoneSuccessModal}
+                footer={null}
+                maskClosable={false}
+                 >
+                    <Alert message="Thank you for registering! An SMS has been sent to your phone. Please confirm your account by tapping on the provided link." type="success" />
+            </Modal>
                 <Modal 
                 title='Message'
                 open={isMessagingModalShown}
@@ -280,7 +298,7 @@ export class Shop extends Component{
                     <Alert message="Message Sent!" type="success" />
                 </Modal>
             </ConfigProvider>
-            <NavigationBar {...this.props} handleRegisterUserClickEvent={this.showRegisterMethodModal} handleSignIn={this.showSuccessModal} handleLoginModal={this.showLoginMethod} showHome="none"/>
+            <NavigationBar {...this.props} handleRegisterUserClickEvent={this.showRegisterMethodModal} handleSignIn={this.showSuccessModal} handleLoginModal={this.showLoginMethod}  showHome="none"/>
             <Jumbotron />
             <div className=" p-2 justify-center">
                 <div>

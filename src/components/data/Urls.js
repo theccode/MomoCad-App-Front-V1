@@ -2,10 +2,10 @@ import { DataTypes } from "./Types";
 
 // const hostname = "165.227.175.62";
 /***************www.mobilemoneycad.com***************/
+/* *************** SECURED URL SETTINGS ******** */
 const protocol = "https";
 const hostname = "www.mobilemoneycad.com";
 const port = 443;
-/* *************** SECURED URL SETTINGS ******** */
 const CALLBACK_URL = 'CALLBACK_URL';
 const PAY_CALLBACK_URL = 'PAY_CALLBACK_URL';
 const SOCKET_URL = 'SOCKET_URL';

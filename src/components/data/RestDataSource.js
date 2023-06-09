@@ -52,19 +52,18 @@ export class RestDataSource {
 
     Checkout =  (dataType, data) => {
         const authService = new MomoAuthService();
+        const customerFirstName = authService.getUserDetails().customerName.split(' ')[0];
+        const customerEmail = authService.getUserDetails().customerEmail;
         const phoneNumber = authService.getLoggedInUserName().split(',')[1];
         const transactionDetails = authService.getTransactionDetails();
         const receipientNumber = (authService.getRecipientNumber() || transactionDetails.receiversNumber);
-        // return;
-        const formattedMessage = data.message.category.name ||  data[Object.keys(data)].name+ ': ' + data.message.body  || data[Object.keys(data)].body + '.' + ' MOMOCAD ID: ' + data.message.momocadId || data[Object.keys(data)].momocadId+ ' is worth GHC ' + (Number(data.message.category.amount || data[Object.keys(data)].category.amount) - Number(data.message.category.charge || data[Object.keys(data)].category.charge)) + ' FROM: ' + phoneNumber || transactionDetails.customerEmail+'. Visit https://www.mobilemoneycad.com to celebrate your loved ones.';
+        const formattedMessage = (data.message.category.name ||  data[Object.keys(data)].name)+ ': ' + (data.message.body  || data[Object.keys(data)].body) + '.' + ' MOMOCAD ID: ' + (data.message.momocadId || data[Object.keys(data)].momocadId)+ ' is worth GHC ' + (((Number(data.message.category.amount || data[Object.keys(data)].category.amount)) - (Number(data.message.category.charge || data[Object.keys(data)].category.charge)))) + ' FROM: '+ customerFirstName  + '-' + (phoneNumber || customerEmail)+'. Visit https://www.mobilemoneycad.com to celebrate your loved ones.';
         const payload = {
             from: 'MOMOCAD',
             to: receipientNumber,
             body: formattedMessage
         }
-
         const res = this.SendRequest('post', RestUrls[dataType], payload);
-        authService.clearReciepientNumber();
         return res;
     }
     FetchRate = (dataType) => this.SendRequest('get', RestUrls[dataType]);

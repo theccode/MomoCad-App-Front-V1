@@ -9,7 +9,6 @@ import { Alert, ConfigProvider, Modal, message, theme } from "antd";
 import { RestDataSource } from "../../data/RestDataSource";
 import { MomoAuthService } from "../../auth/MomoAuthService";
 import { RestUrls, momoResUrl } from "../../data/Urls";
-import client from "react-stomp";
 import { Client, Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
@@ -32,7 +31,8 @@ export class PhoneCartDetails extends Component{
             sendingAmount:'',
             receivingAmount:'', 
             response: '',
-            message: ''
+            message: '',
+            isClosable: true
         }; 
     }
     handleChange = (field, e) => {
@@ -138,11 +138,14 @@ export class PhoneCartDetails extends Component{
         const self = this;
         stompClient.connect({}, function(frame){
             stompClient.subscribe(`/api/shop/receive-momo/res`, function(response){
-                // console.log(JSON.parse(response.body));
                 const body = JSON.parse(response.body);
                 const transactionState = status[body.message];
                 if (clientRef === body.data.clientReference){
                     self.handleConfirmLoading(!transactionState)
+                    self.setState({
+                        isTransactionStatusModalShown: transactionState,
+                        isClosable: !transactionState
+                    })
                 }
             })  
         })
@@ -153,14 +156,14 @@ export class PhoneCartDetails extends Component{
     `;
 
     render() {
-        const { isTransactionStatusModalShown, network, sendingAmount, receivingAmount, confirmLoading } = this.state;
+        const { isTransactionStatusModalShown, network, sendingAmount, receivingAmount, confirmLoading, isClosable} = this.state;
         const authService = new MomoAuthService();
-        const receiveAmt = (Number(receivingAmount) - Number(receivingAmount * 0.01));
+        // const receiveAmt = (Number(receivingAmount) - Number(receivingAmount * 0.01));
         const transactionDetails = {
             channel: this.state.fields['networks'],
             receiverNetwork: this.state.fields['receiver-networks'],
             sendingAmount: sendingAmount,
-            receivingAmount: receiveAmt,
+            receivingAmount: receivingAmount,
             description: 'MOMOCAD'
         }
         return <>
@@ -173,25 +176,25 @@ export class PhoneCartDetails extends Component{
             }}
         >
             <Modal
-                title="Transaction Status"
+                title="Transaction initiated..."
                 open={ isTransactionStatusModalShown }
                 onOk={ this.handleTransaction }
-                onCancel={ this.hideTransactionStatusModal}
+                onCancel={ isClosable ? this.hideTransactionStatusModal : this.showTransactionStatusModal}
                 confirmLoading={ confirmLoading }
                 width={400}
-                closable={false}
+                closable={isClosable}
                 maskClosable={false}
                 okText="Proceed"
                 >
-                    <Alert message="You'll receive a prompt on your phone to continue with this purchase, click on 'Proceed' after the loading is done to complete the transaction or 'Cancel' to cancel the transaction. Thank you!" type="success" />
+                    <Alert message="You'll receive a prompt on your phone to continue with this purchase, click on 'Proceed' after the loading is done to complete the transaction or 'Cancel' to cancel the transaction. Thank you!" />
             </Modal>
         </ConfigProvider>
         <NavigationBar {...this.props } display='none' />
             <div className="flex  justify-center items-center flex-col">
                 <div className="flex flex-col items-center justify-center  mb-4">
-                    <p className="text-2xl text-gray-400 mt-4 dark:text-gray-500">Kindly review your order details</p>
+                    <p className="text-2xl text-gray-400 mt-4 dark:text-gray-500" style={{fontSize: '10px', fontWeight: 'bold'}}>SENDING PAGE</p>
                     <div className="flex mt-2">
-                        <span><img src={Momo} width="256" height="256" /></span>
+                        {/* <span><img src={Momo} width="256" height="256" /></span> */}
                     </div>
                 </div>
                 <table className="shadow-xl m-2 border  border-gray-500 text-gray-500 dark:text-gray-400">

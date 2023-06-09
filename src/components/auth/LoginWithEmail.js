@@ -22,6 +22,14 @@ export class LoginWithEmail extends Component{
         momoAuthService.executeBasicAuthenticationService(values.email, null, values.password).then((res) => {
             Array.of(res.data).map(user => {
                if (user){
+                    const user_credentials = {
+                        customerName: user.firstName + ' ' + user.lastName,
+                        customerMsisdn: user.email,
+                        customerEmail: user.username || null
+                    }
+                    momoAuthService.setUserDetails(
+                        user_credentials
+                    )
                     momoAuthService.registerSuccessfulLogin(user.email)
                }
             })

@@ -54,22 +54,22 @@ export class MessageList extends Component{
          this.props.checkout(this.state.paymentUrl)
     }
     handleCallBack(result){
-        console.log(result);
+        // console.log(result);
         this.setState({
             isLoading: this.status[result.status],
             paymentUrl: result.data.checkoutUrl
         })
     }
 
-    makePaymentCall = ( amount ) => {
-       
+    makePaymentCall = ( amount, rate ) => {
+        // console.log(rate);
         const authService = new MomoAuthService();
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Basic ODRrWFFnOmI4M2M1ZDg0YWYwNjQ4OGNhYjM3Y2QxZDgyMDJjNmM1");
-
+        const amoutToPay = amount * rate;
         const raw = JSON.stringify({
-        "totalAmount": amount,
+        "totalAmount": amoutToPay,
         "description": "Pay for your momocad.",
         "callbackUrl": "https://www.mobilemoneycad.com/api/shop/visa/pay/res",
         "returnUrl": "https://www.mobilemoneycad.com/momocad/shop/cart",
@@ -105,8 +105,7 @@ export class MessageList extends Component{
     render(){
         const authService = new MomoAuthService();
         const { isUserTermsShowing, amount, charge, rate,  isLoading } = this.state;
-
-        const netAmount = ((amount - charge)*rate) - (((amount - charge)*rate) * 0.1 )
+        const netAmount = ((amount - charge)*rate);
         const rawAmount = amount - charge;
         if (this.props.messages === null || this.props.messages.length === 0){
             return <h3 className="p-2 text-center text-2xl">No Messages</h3>
@@ -132,7 +131,7 @@ export class MessageList extends Component{
                         maskClosable={false}
                         okText="Proceed"
                         >
-                            <Alert message={`By buying this momoCAD, recipient receives an amount of $${ rawAmount } equivalent to GH¢${ netAmount.toFixed(2)}  into their momo wallet.`} type="success" />
+                            <Alert message={`By buying this momoCAD, recipient receives an amount of $${ rawAmount.toFixed(2) } equivalent to GH¢${ netAmount.toFixed(2)}  into their momo wallet.`} />
                             
                     </Modal>
                 </ConfigProvider>
@@ -150,9 +149,9 @@ export class MessageList extends Component{
                                 <button type="button"  className="text-white m-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" style={{float: "right", backgroundColor: `${ message.category.colour }`}} onClick={ () =>{ 
                                     const clientReference = `${this.uuidv4()}`.substring(0, 20);
                                     authService.setClientReference(clientReference);
-                                    this.setAmount(message.category.amount, message.category.charge, 1/*this.props.rates[0].rate*/)
+                                    this.setAmount(message.category.amount, message.category.charge, this.props.rates[0].rate)
                                     this.setMessage(message);
-                                    this.makePaymentCall(message.category.amount  /*</div>* this.props.rates[0].rate*/);
+                                    this.makePaymentCall(message.category.amount, this.props.rates[0].rate);
                                     authService.setMomocad({message});
                                     authService.isUserLoggedIn() ?  this.handleUserType(authService, message) : this.props.handleLoginModal()
                                     }}>Send</button>

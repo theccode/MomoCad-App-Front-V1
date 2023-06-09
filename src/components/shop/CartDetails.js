@@ -93,12 +93,12 @@ export class CartDetails extends Component{
     render() {
         const {sendersEmail, sendingAmount, receivingAmount, receiverNumber } = this.state;
         const authService = new MomoAuthService();
-        const receiveAmt = (Number(receivingAmount) - Number(receivingAmount * 0.01));
+        // const receiveAmt = (Number(receivingAmount) - Number(receivingAmount * 0.01));
         const transactionDetails = {
             channel: this.state.fields['networks'],
             receiverNetwork: this.state.fields['receiver-networks'],
             sendingAmount: sendingAmount,
-            receivingAmount: receiveAmt,
+            receivingAmount: receivingAmount,
             description: 'MOMOCAD',
             customerEmail: sendersEmail,
             receiversNumber: receiverNumber
@@ -107,11 +107,11 @@ export class CartDetails extends Component{
         <NavigationBar {...this.props} display='none' />
             <div className="flex  justify-center items-center flex-col">
                 <div className="flex flex-col items-center justify-center  mb-4">
-                    <p className="text-2xl text-gray-400 mt-4 dark:text-gray-500">Kindly review your order details</p>
-                    <div className="flex mt-2">
+                    <p className="text-2xl text-gray-400 mt-4 dark:text-gray-500" style={{fontSize: '10px', fontWeight: 'bold'}}>SENDING PAGE</p>
+                    {/* <div className="flex mt-2">
                         <span><img src={mastercard} width="120" height="120" /></span>
                         <span className="mt-2"><img src={visa} width="120" height="120" /></span>
-                    </div>
+                    </div> */}
                 </div>
                 <table className="shadow-xl m-2 border  border-gray-500 text-gray-500 dark:text-gray-400">
                     <tbody>
@@ -142,10 +142,11 @@ export class CartDetails extends Component{
                     <button type="button" class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2" onClick={() => {
                          authService.setTransactionDetails(transactionDetails);
                         if (this.handleValidation()){
-                            const message = authService.getMomocad();
-                            message.body = this.state.message;
-                            // if (message.bod)
-                            this.props.checkout(this.handleCheckout(message));
+                            const payload = authService.getMomocad();
+                            if (this.state.message){
+                                payload.message.body = this.state.message;
+                            }
+                            this.props.checkout(this.handleCheckout(payload));
                             this.props.send_money();
                         }
                     }}>

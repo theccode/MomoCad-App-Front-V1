@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import logo from '../logo.png';
+import logo from '../momocad.png';
 import { CartSummary } from "./shop/CartSummary";
 import { NavigationBanner } from "./categorynavigation/NavigationBanner";
 import { MomoAuthService } from "./auth/MomoAuthService";
@@ -10,6 +10,7 @@ export class NavigationBar extends Component{
     handleLogout = (authService) => {
         authService.logout();
         sessionStorage.clear();
+        this.props.clearCart();
         this.props.history.push('/momocad/shop/messages')
     }
 
@@ -22,8 +23,8 @@ export class NavigationBar extends Component{
             <>
               <nav className="bg-white border-gray-200  py-2.5 rounded dark:bg-gray-900 sticky top-0 z-50 text-white" x-data="{ open: false }">
                   <div className="flex justify-between mx-auto">
-                      <Link to="momocad/shop/messages" className="flex items-stretch">
-                          <img src={logo} className="h-6 ml-2 mr-3 sm:h-9" alt="MomoCAD Logo" /> <br/> 
+                      <Link to="/momocad" className="flex items-stretch">
+                          <img src={logo} className="h-12 ml-2 mr-3 sm:h-10" alt="MomoCAD Logo" /> <br/> 
                       </Link>
                       <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 focus:m-2" aria-controls="navbar-default" aria-expanded="false">
                       <span className="sr-only">Open main menu</span>

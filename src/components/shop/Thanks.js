@@ -12,13 +12,11 @@ export class Thanks extends Component{
         this.props.clearCart();
         authService.removeMomocad();
         authService.removeTransaction();
-        authService.removeUserDetails();
     }
     render(){
         return <>
             <NavigationBar { ...this.props } display='none'/>
             <div className="flex flex-col justify-center items-center text-white">
-
                 <div className="m-2 text-center">
                     <h1 className="text-5xl mb-2 text-green-600">Congratulations!</h1>
                     <p>Thanks for placing your order.</p>
