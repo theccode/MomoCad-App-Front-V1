@@ -29,6 +29,7 @@ export class LoginWithPhone extends Component{
                     user_credentials
                 )
                 momoAuthService.registerSuccessfulLogin(user.phoneNumber, user.phoneNumber)
+                momoAuthService.setUserId(user.userId);
             })
             this.props.history.push('/momocad/shop/messages')
         }).catch(error => {

@@ -19,12 +19,12 @@ export class CartSummary extends Component {
     }
 
     getLinkClasses = () => {
-        return `text-red ${this.props.cartItems === 0 ? 'disabled':''}`;
+        return `text-yellow ${this.props.cartItems === 0 ? 'disabled':''}`;
     }
     handleCartUrl = (authMethod) => {
-        const url = authMethod === 'email' ? '/momocad': '/momocad/shop/momo-user-cart';
+        const url = authMethod === 'email' ? '/momocad': '/momocad';
         return <Link className={this.getLinkClasses()} to={ url }>
-                        <span> </span> <i className="fa fa-shopping-cart"></i>
+                        <span> </span> <i className="fa fa-shopping-cart cursor-pointer"></i>
                      </Link>
     }
     render(){

@@ -31,6 +31,7 @@ export class LoginWithEmail extends Component{
                         user_credentials
                     )
                     momoAuthService.registerSuccessfulLogin(user.email)
+                    momoAuthService.setUserId(user.userId);
                }
             })
             this.props.history.push('/momocad/shop/messages')

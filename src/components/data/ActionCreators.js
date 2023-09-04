@@ -18,11 +18,15 @@ export const login = (user) =>({
     type: ActionTypes.LOGIN_USER,
     payload: dataSource.LoginUser(DataTypes.LOGIN, user).then(response => ({dataType: DataTypes.LOGIN, data: response.data}))
 })
-export const placeOrder =  (order) =>({
+export const placeOrder =  (status) =>({
     type: ActionTypes.DATA_STORE,
-    payload: dataSource.StoreData(DataTypes.ORDERS, order).then(response =>({
+    payload: dataSource.StoreOrders(DataTypes.ORDERS).then(response =>({
         dataType: DataTypes.ORDERS, data: response.data
     }))
+})
+export const loadOrdersByUserId = (dataType) => ({
+    type: ActionTypes.DATA_LOAD,
+    payload: dataSource.LoadOrdersByUserId(dataType).then(response => ({dataType, data: response.data}))
 })
 export const checkout =  (params) =>({
     type: ActionTypes.CHECKOUT_USER,

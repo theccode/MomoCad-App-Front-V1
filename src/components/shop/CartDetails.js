@@ -5,6 +5,9 @@ import { NavigationBar } from "../NavigationBar";
 import { MomoAuthService } from "../auth/MomoAuthService";
 import mastercard from '../../assets/mastercard.png';
 import visa from '../../assets/visa.png';
+import SockJS from "sockjs-client";
+import { RestUrls } from "../data/Urls";
+import { Stomp } from "@stomp/stompjs";
 
 export class CartDetails extends Component{
     constructor(props){
@@ -90,6 +93,30 @@ export class CartDetails extends Component{
     getLinkClasses = ()=>`inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white ${this.props.cartItems === 0 ? 'disabled' : ''}
     `;
 
+    handleOrder = (status) => {
+        this.props.placeOrder(status);
+    }
+
+    componentDidMount() {
+        const responses = {
+            '0000': true,
+            '0001': true
+        }
+        const sendSock = new SockJS(RestUrls.SOCKET_URL);
+        let sendStompClient = Stomp.over(sendSock);
+        sendSock.onopen = function(){
+
+        }
+        const self = this;
+        sendStompClient.connect({}, function(frame){
+            sendStompClient.subscribe('/api/shop/send-momo/res', function(response){
+                const body = JSON.parse(response.body);
+                const transactionState = responses[body.responseCode];
+                self.handleOrder(transactionState);
+            })
+        });
+        sendStompClient.reconnect_delay = 2000;
+    }
     render() {
         const {sendersEmail, sendingAmount, receivingAmount, receiverNumber } = this.state;
         const authService = new MomoAuthService();
@@ -113,7 +140,7 @@ export class CartDetails extends Component{
                         <span className="mt-2"><img src={visa} width="120" height="120" /></span>
                     </div> */}
                 </div>
-                <table className="shadow-xl m-2 border  border-gray-500 text-gray-500 dark:text-gray-400">
+                <table className="shadow-xl m-2 border  border-gray-700 bg-gray-800 text-gray-500 dark:text-gray-400">
                     <tbody>
                         <CartDetailsRows 
                         cart={ authService.getMomocad() || this.props.cart} 
@@ -139,7 +166,7 @@ export class CartDetails extends Component{
                 <div className="m-5">
                     {/* <Link className="inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white mr-2" to="/momocad/shop/messages">Return to Shop</Link> */}
                     {/* <Link className={ this.getLinkClasses() } to="/momocad/checkout">SEND</Link> */}
-                    <button type="button" class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2" onClick={() => {
+                    <button type="button" class="text-gray-200  hover:bg-gray-100 hover:text-gray-900 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2" onClick={() => {
                          authService.setTransactionDetails(transactionDetails);
                         if (this.handleValidation()){
                             const payload = authService.getMomocad();

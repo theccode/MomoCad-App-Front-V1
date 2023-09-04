@@ -1,4 +1,3 @@
-import './App.css';
 import React, { Component } from 'react';
 import { ShopConnector } from './components/shop/ShopConnector';
 import {BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';

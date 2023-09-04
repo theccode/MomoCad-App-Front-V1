@@ -14,7 +14,7 @@ import s08 from '../assets/s08.png'
 export class Jumbotron extends Component{
     render(){
         return (
-          <div className="parent container w-full mx-auto" style={{marginTop: '40px', padding: '0 0.5rem'}}>
+          <div className="parent container w-full mx-auto bg-gray-900" style={{marginTop: '40px', padding: '0 0.5rem'}}>
             <Carousel autoplay>
               <div>
                 <img src={s01} alt=""/>

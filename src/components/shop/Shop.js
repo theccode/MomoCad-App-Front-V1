@@ -136,7 +136,7 @@ export class Shop extends Component{
     })
     render(){
         const { isOTPModalShown,isRegisterMethodShown, phoneSuccessModalShown, registerWithPhoneShown, loginWithPhoneShown, isLoginMethodShown, isRegisterUserModalVisible, successModalShown, loginModalShown, isMessagingModalShown, loginFailureShown } = this.state;
-        return <div className="mx-auto bg-slate-900 justify-center body text-slate-100">
+        return <div className="mx-auto bg-gray-900 body">
             <ConfigProvider
             theme={{
                 token: {

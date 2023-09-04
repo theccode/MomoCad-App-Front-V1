@@ -3,6 +3,7 @@ export const DataTypes = {
     CATEGORIES: 'categories',
     SUBCATEGORIES: 'sub_categories',
     ORDERS: 'orders',
+    ORDERSBYUSER: 'ordersbyuser',
     USERS: 'users',
     LOGIN: 'login',
     CHECKOUT: 'checkout',

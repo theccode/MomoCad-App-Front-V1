@@ -53,15 +53,15 @@ export class CartDetailsRows extends Component{
                     
                     Array.of(this.props.cart.message).map(item => ( <Fragment key={item.messageId} > 
                             
-                            <tr className="border-b  dark:bg-gray-800  dark:border-gray-700">
+                            <tr className="border-b  dark:bg-gray-800  border-gray-700">
                                 <td colSpan={1} className="px-3 py-2 mr-4">Sender's Email: </td>
-                                <td colSpan={3} className="px-3 py-2"><input  ref={ senderEmailRef } style={{ fontFamily: '"Roboto", sans-serif'}} type="text" id="sender-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full  p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. john@mobilemoneycad.com" value={this.getUserPhone(authService.getLoggedInUserName())} disabled/></td>
+                                <td colSpan={3} className="px-3 py-2"><input  ref={ senderEmailRef } style={{ fontFamily: '"Roboto", sans-serif'}} type="text" id="sender-id" className="bg-gray-700  text-gray-200  text-sm rounded-lg w-full  p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. john@mobilemoneycad.com" value={this.getUserPhone(authService.getLoggedInUserName())} disabled/></td>
                             </tr>
-                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700">
+                            <tr className="border-b  dark:bg-gray-800 border-gray-700">
                                 <td colSpan={1} className="px-3 py-2 ">Receiver's ID: </td>
                                 <td colSpan={3} className="px-3 py-2">
                                 <span style={{ color: 'red'}}>{ this.props.errors['receiver'] }</span>
-                                    <input style={{ fontFamily: '"Roboto", sans-serif'}} type="text" id="receiving-bank-account" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. 0241112231"  onChange={(e) => {
+                                    <input style={{ fontFamily: '"Roboto", sans-serif'}} type="text" id="receiving-bank-account" className="bg-gray-700  text-gray-200  text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="e.g. 0241112231"  onChange={(e) => {
                                     this.props.handleChange('receiver', e);
                                     this.props.receiver(e.target.value);
                                     this.props.receivingAmount(item.category.amount);
@@ -69,12 +69,12 @@ export class CartDetailsRows extends Component{
                                     this.props.setSendersEmail(senderEmailRef.current.value)
                                     }}/></td>
                             </tr>
-                            <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
+                            <tr className="border-b dark:bg-gray-800 border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">Recipient's Network: </td>
                                 <td colSpan={3} className="px-3 py-2">
                                 <span style={{ color: 'red'}}>{ this.props.errors['networks'] }</span>
                                 <select ref='networks' onChange={
-                                    this.props.handleChange.bind(this, 'receiver-networks')} id="networks" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    this.props.handleChange.bind(this, 'receiver-networks')} id="networks" class="bg-gray-700  text-gray-200  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option selected disabled>Select Recipient's Network</option>
                                     <option value="mtn-gh">MTN Ghana</option>
                                     <option value="vodafone-gh">Vodafone Ghana</option>
@@ -82,15 +82,15 @@ export class CartDetailsRows extends Component{
                                 </select>
                                 </td>
                             </tr>
-                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700">
+                            <tr className="border-b  dark:bg-gray-800 border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">MomoCad ID: </td>
                                 <td colspan={3} className="px-3 py-2">
-                                    <input style={{ fontFamily: '"Roboto", sans-serif'}} type="text" id="momocad-id" className="bg-gray-50  text-gray-900 text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" defaultValue={item.momocadId} placeholder="e.g 01FCDASKJ" disabled/>
+                                    <input style={{ fontFamily: '"Roboto", sans-serif'}} type="text" id="momocad-id" className="bg-gray-700  text-gray-200  text-sm rounded-lg w-full   p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" defaultValue={item.momocadId} placeholder="e.g 01FCDASKJ" disabled/>
                                 </td>
                             </tr>
-                            <tr className="border-b  dark:bg-gray-800 dark:border-gray-700">
+                            <tr className="border-b  dark:bg-gray-800 border-gray-700">
                                 <td colSpan={4} className="px-3 py-2" >
-                                <textarea id="message" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg w-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={item.body} placeholder="Message..."
+                                <textarea id="message" rows="4" className="block p-2.5 w-full text-sm bg-gray-700  text-gray-200  bg-gray-50 rounded-lg w-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={item.body} placeholder="Message..."
                                 onChange={ (e) => {
                                     this.handleChangeOnMsg(e);
                                     this.props.handleChange('message', e);
@@ -101,19 +101,19 @@ export class CartDetailsRows extends Component{
                                     <span style={{ color: 'red', display: 'block'}}>{ this.props.errors['message'] }</span>
                                 </td>
                             </tr>
-                            <tr className="border-b dark:bg-gray-800 dark:border-gray-700">
+                            <tr className="border-b dark:bg-gray-800 border-gray-700">
                                 <td colSpan={1} className="px-3 py-2">Confirm Receiver's ID: </td>
                                 <td colSpan={3} className="px-3 py-2">
                                     <span style={{ color: 'red'}}>{ this.props.errors['confirm'] }</span>
                                     <input ref='confirm'  onChange={e =>  {
                                         this.props.handleChange('confirm', e);
                                         this.props.confirm(e.target.value);
-                                    }} type="text" id="confirm-receiver-id" style={{ fontFamily: '"Roboto", sans-serif'}} className="bg-gray-50  text-gray-900 text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0240183836" required/>
+                                    }} type="text" id="confirm-receiver-id" style={{ fontFamily: '"Roboto", sans-serif'}} className="bg-gray-700  text-gray-200  text-sm rounded-lg   w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="0240183836" required/>
                                 </td>
                             </tr>
-                            <tr className="text-right  dark:border-gray-700">
+                            <tr className="text-right  border-gray-700">
                                 <td colSpan={4} className="px-3 py-2">
-                                <hr className="my-6 border-gray-200 border-dashed sm:mx-auto dark:border-gray-700 lg:my-8 text-center" />
+                                <hr className="my-6 border-gray-200 border-dashed sm:mx-auto border-gray-700 lg:my-8 text-center" />
                                 </td>
                             </tr>
                            

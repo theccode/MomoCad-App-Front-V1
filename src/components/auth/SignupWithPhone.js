@@ -25,7 +25,7 @@ export class SignupWithPhone extends Component{
         const fieldStyle = {backgroundColor: 'transparent', outline:'none', border: 'none', color:'#FF0000', ...BottomMargin};
         return <>
                 <Formik
-                        initialValues={{ firstName: '', lastName:'', password: '', confirmPassword: '', phoneNumber:'', countryOfOrigin:'', dateOfBirth: '', gender: '', userExist: '' }}
+                        initialValues={{ firstName: '', lastName:'', password: '', confirmPassword: '', phoneNumber:'', countryOfOrigin:'', gender: '', userExist: '' }}
                         validate={values => {
                             const errors = {};
                               if (!values.firstName){
@@ -54,9 +54,9 @@ export class SignupWithPhone extends Component{
                              if (!values.gender){
                                 errors.gender = 'Gender is required';
                             }
-                             if (!values.dateOfBirth){
-                                errors.dateOfBirth = 'Date of birth is required';
-                            }
+                            //  if (!values.dateOfBirth){
+                            //     errors.dateOfBirth = 'Date of birth is required';
+                            // }
                             sErrors = errors;
                             return errors;
                         }}
@@ -150,14 +150,14 @@ export class SignupWithPhone extends Component{
                                 placeholder='Country Of Origin'
                             />
                             {errors.countryOfOrigin && touched.countryOfOrigin &&  <Tag style={fieldStyle}>{ errors.countryOfOrigin }</Tag>}
-                            Date Of Birth:
+                            {/* Date Of Birth:
                             <Form.Item>
                                 <DatePicker
                                 name="dateOfBirth"
                                 onChange={(value) => setFieldValue('dateOfBirth', value)}
                                 />
-                            </Form.Item>
-                            {errors.dateOfBirth && touched.dateOfBirth &&  <Tag style={ fieldStyle}>{ errors.dateOfBirth }</Tag>}
+                            </Form.Item> */}
+                            {/* {errors.dateOfBirth && touched.dateOfBirth &&  <Tag style={ fieldStyle}>{ errors.dateOfBirth }</Tag>} */}
                             Gender:  
                             <div role="group" aria-labelledby="my-radio-group">
                                 

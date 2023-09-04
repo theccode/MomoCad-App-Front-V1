@@ -8,7 +8,7 @@ export const USERDETAILS = 'userDetails';
 export const TRANSACTION_DETAILS = 'transactionDetails';
 export const CLIENT_REFERENCE = 'clientReference';
 export const MOMOCAD = 'momocad';
-
+export const USER_ID = 'userId';
 export class MomoAuthService {
     executeBasicAuthenticationService(email = null, phoneNumber=null, password){
         const payload = {
@@ -35,6 +35,16 @@ export class MomoAuthService {
     registerSuccessfulLogin (username, phoneNumber){
         sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, [username, phoneNumber])
         this.setupAxiosInterceptors(this.createBasicAuthToken(username, phoneNumber));
+    }
+    setUserId(userId){
+        sessionStorage.setItem(USER_ID, userId);
+    }
+    getUserId(){
+        let userId = sessionStorage.getItem(USER_ID)
+        if (userId == null){
+            return '';
+        }
+        return userId;
     }
 
     setMomocad (momocad){
